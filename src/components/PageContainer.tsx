@@ -4,7 +4,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { useGSAP } from '@gsap/react'
-import classNames from 'classnames'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
@@ -28,9 +27,7 @@ const PageContainer: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <main id={'smooth-wrapper'} ref={mainRef}>
-      <div id={'smooth-content'} className={classNames('w-full')}>
-        {children}
-      </div>
+      <div id={'smooth-content'}>{children}</div>
     </main>
   )
 }
