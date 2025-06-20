@@ -10,13 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
     "@gsap/react": "^2.1.2",
     "classnames": "^2.5.1",
     "gsap": "^3.13.0",
     "mobx": "^6.13.7",
     "mobx-react-lite": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
