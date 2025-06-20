@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+.sectionContainer {
+    @apply pb-38 text-white;
+
+    .title {
+        @apply text-4xl text-[#D6B065] mb-20.5;
+    }
+
+    .content {
+        @apply w-300 h-165 relative;
+
+        .roadmapContainer {
+            @apply absolute flex items-start flex-row;
+        }
+    }
+}
+
+.roadmapContainer1 {
+    @apply top-0 left-0;
+}
+
+.roadmapContainer2 {
+    @apply top-21.5 right-0;
+}
+
+.roadmapContainer3 {
+    @apply top-72.5 left-0;
+}
+
+.roadmapContainer4 {
+    @apply bottom-0 right-0;
+}
+
+.roadmapTime {
+    @apply w-36.5 h-30.5 flex flex-col items-center justify-start pt-8 px-10 text-2xl mr-4 break-all text-center;
+    @apply bg-[url(/src/assets/images/home_page/roadmap_time_background.png)] bg-contain bg-center bg-no-repeat;
+    text-shadow: -2px -2px 0 #731A1A,
+    2px -2px 0 #731A1A,
+    -2px 2px 0 #731A1A,
+    2px 2px 0 #731A1A,
+    0 -2px 0 #731A1A,
+    0 2px 0 #731A1A,
+    -2px 0 0 #731A1A,
+    2px 0 0 #731A1A;
+}
+
+.roadmapInfoContainer {
+    @apply w-81 flex flex-col items-stretch px-8 py-6;
+    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] bg-top-left bg-no-repeat;
+    background-size: 100% 100%;
+
+    .roadmapInfoTitle {
+        @apply text-xl mb-3;
+    }
+
+    .roadmapTarget {
+        @apply text-lg leading-7.5;
+    }
+}
