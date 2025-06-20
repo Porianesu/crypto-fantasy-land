@@ -9,6 +9,10 @@ import SectionFive from '@/pages/ HomePage/SectionFive.tsx'
 import SectionSix from '@/pages/ HomePage/SectionSix.tsx'
 
 const HomePage: React.FC = () => {
+  const goGamePage = () => {
+    window.open('https://fantasy.defed.network')
+  }
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.heroesPartContainer}>
@@ -20,8 +24,10 @@ const HomePage: React.FC = () => {
         <div className={styles.heroesCover}></div>
       </div>
       <div className={styles.header}>
-        <div className={styles.gameIcon}></div>
-        <button className={classNames('button', styles.playButton)}>Play Game</button>
+        <button className={classNames(styles.gameIcon, 'button')} onClick={goGamePage}></button>
+        <button className={classNames('button', styles.playButton)} onClick={goGamePage}>
+          Play Game
+        </button>
       </div>
       <section className={styles.sectionContainer}>
         <div className={styles.title}>Legends Aren't Born. They're Minted.</div>

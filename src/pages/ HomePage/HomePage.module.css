@@ -9,12 +9,12 @@
         @apply flex flex-row items-center justify-between pt-6.5 px-66;
 
         .gameIcon {
-            @apply w-28.5 h-14.5;
+            @apply w-28.5 h-14.5 cursor-pointer;
             @apply bg-[url(/src/assets/images/home_page/game_icon.png)] bg-cover bg-center bg-no-repeat;
         }
 
         .playButton {
-            @apply w-50 h-14 text-white text-xl;
+            @apply w-50 h-14 text-white text-xl cursor-pointer;
             @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
             font-family: Duvall, serif;
             text-shadow: -2px -2px 0 #4C3110,
