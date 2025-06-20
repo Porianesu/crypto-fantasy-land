@@ -56,7 +56,7 @@ const SectionThree: React.FC = () => {
       <div className={styles.gamePartContainer}>
         {GAME_DATA.map((game) => {
           return (
-            <div className={styles.gameContainer}>
+            <div className={styles.gameContainer} key={game.title}>
               <img alt={`game-${game.title}`} className={styles.gameImage} src={game.image}></img>
               <div className={styles.gameTitle}>{game.title}</div>
               <div className={styles.gameDescription}>{game.description}</div>

@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+.sectionContainer {
+    @apply pb-38 text-white;
+
+    .title {
+        @apply text-4xl text-[#D6B065] mb-11;
+    }
+
+    .description {
+        @apply text-lg leading-7.5 mb-17;
+    }
+
+    .contentContainer {
+        @apply flex items-start justify-center relative;
+    }
+
+    .content {
+        @apply w-170 h-160.5 relative z-10 flex flex-col items-center justify-start;
+        @apply bg-[url(/src/assets/images/home_page/section_five/triangle_background.png)] bg-contain bg-center bg-no-repeat;
+
+        .titleContainer {
+            @apply size-20 rounded-full flex items-center justify-center text-2xl font-semibold text-center absolute z-0;
+            @apply bg-[url(/src/assets/images/home_page/section_five/title_background.png)] bg-contain bg-center bg-no-repeat;
+        }
+
+        .dataArrow {
+            @apply absolute bg-contain bg-center bg-no-repeat z-10;
+        }
+
+        .dataDescription {
+            @apply text-base absolute z-20;
+        }
+    }
+}
+
+.titleContainer1 {
+    @apply top-27;
+}
+
+.titleContainer3 {
+    @apply top-110 left-25.5;
+}
+
+.titleContainer4 {
+    @apply top-110 right-25.5;
+}
+
+.dataDescription1 {
+    @apply w-42.5 top-49 left-89;
+}
+
+.dataDescription2 {
+    @apply w-38 top-94 left-29.5;
+}
+
+.dataDescription3 {
+    @apply w-49 top-124 left-60;
+}
+
+.dataDescription4 {
+    @apply w-46 top-87.5 left-117;
+}
+
+.dataDescription5 {
+    @apply w-33 top-104 left-81;
+}
+
+.dataArrow1 {
+    @apply h-21 w-3 top-48;
+    @apply bg-[url(/src/assets/images/home_page/section_five/arrow_1.png)];
+}
+
+.dataArrow2 {
+    @apply w-22 h-20 top-94 left-41;
+    @apply bg-[url(/src/assets/images/home_page/section_five/arrow_2.png)];
+}
+
+.dataArrow3{
+    @apply w-77 h-3 top-119 left-44;
+    @apply bg-[url(/src/assets/images/home_page/section_five/arrow_3.png)];
+}
+
+.dataArrow4{
+    @apply w-22 h-20 top-94 left-108;
+    @apply bg-[url(/src/assets/images/home_page/section_five/arrow_4.png)];
+}
+
+.dataArrow5{
+    @apply w-22 h-20 top-98 left-106;
+    @apply bg-[url(/src/assets/images/home_page/section_five/arrow_5.png)];
+}
+
+.titleCenterContainer {
+    @apply size-80 flex items-center justify-center absolute top-46 text-2xl font-semibold z-0;
+
+    .titleEllipse {
+        @apply absolute z-0 size-full;
+        @apply bg-[url(/src/assets/images/home_page/section_five/title_ellipse.png)] bg-contain bg-center bg-no-repeat;
+    }
+
+    .titleCenterInsideContainer {
+        @apply size-51 flex items-center justify-center z-10;
+        @apply bg-[url(/src/assets/images/home_page/section_five/title_center_background.png)] bg-contain bg-center bg-no-repeat;
+    }
+}
+
+.infoContainer {
+    @apply absolute w-81 h-126 flex flex-col items-stretch justify-start text-white py-9.5 px-4 gap-y-4 top-17.5;
+    @apply bg-contain bg-center bg-no-repeat;
+
+    .infoTitle {
+        @apply text-2xl font-semibold;
+    }
+
+    .infoDescription {
+        @apply text-base flex flex-row items-start;
+
+        & > div {
+            @apply text-2xl mr-2;
+        }
+    }
+}
+
+.infoContainer1 {
+    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-0 -left-65;
+}
+
+.infoContainer2 {
+    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_2.png)] z-20 -right-59;
+}

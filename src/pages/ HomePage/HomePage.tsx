@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import SectionTwo from '@/pages/ HomePage/SectionTwo.tsx'
 import SectionThree from '@/pages/ HomePage/SectionThree.tsx'
 import SectionFour from '@/pages/ HomePage/SectionFour.tsx'
+import SectionFive from '@/pages/ HomePage/SectionFive.tsx'
 
 const HomePage: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const HomePage: React.FC = () => {
       <SectionTwo></SectionTwo>
       <SectionThree></SectionThree>
       <SectionFour></SectionFour>
+      <SectionFive></SectionFive>
       <footer className={styles.footer}>© Address Fantasy 2025</footer>
     </div>
   )
