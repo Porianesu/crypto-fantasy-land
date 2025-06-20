@@ -25,6 +25,7 @@ const HomePage: React.FC = () => {
           Throne.
         </div>
       </section>
+      <footer className={styles.footer}>© Address Fantasy 2025</footer>
     </div>
   )
 }

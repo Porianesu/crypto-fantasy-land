@@ -65,6 +65,10 @@
             2px 0 0 #421512;
         }
     }
+
+    .footer {
+        @apply h-22 bg-[#0B070B] flex items-center justify-center text-[#5C2D28] text-xl z-10;
+    }
 }
 
 .hero1 {
