@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+.sectionContainer {
+    @apply pb-35;
+
+    .title {
+        @apply text-4xl text-[#D6B065] mb-11;
+    }
+
+    .description {
+        @apply text-lg leading-7.5 mb-10;
+    }
+
+    .gamePartContainer {
+        @apply flex flex-row items-start gap-x-15;
+
+        .gameContainer {
+            @apply flex flex-col items-center w-90;
+        }
+    }
+}
+
+.gameContainer {
+    .gameImage {
+        @apply w-90 h-55 mb-4;
+    }
+
+    .gameTitle {
+        @apply text-[#D6B065] text-2xl leading-7.5 mb-3;
+    }
+
+    .gameDescription {
+        @apply text-[#E6CCAF] text-base leading-7.5;
+    }
+
+    .divideLine {
+        @apply my-4;
+    }
+}

@@ -4,7 +4,7 @@
     @apply pb-26;
 
     .title {
-        @apply text-4xl text-[#D6B065] mb-6;
+        @apply text-4xl text-[#D6B065] mb-11;
     }
 
     .description {
