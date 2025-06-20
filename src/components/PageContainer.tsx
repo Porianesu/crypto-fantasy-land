@@ -1,28 +1,37 @@
 import { observer } from 'mobx-react-lite'
-import React, { type PropsWithChildren } from 'react'
-import classNames from 'classnames'
+import React, { type PropsWithChildren, useRef } from 'react'
 import { gsap } from 'gsap'
-import { SplitText } from 'gsap/SplitText'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/ScrollSmoother'
+import { useGSAP } from '@gsap/react'
+import classNames from 'classnames'
 
-gsap.registerPlugin(SplitText)
-gsap.registerPlugin(ScrollSmoother)
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
 const PageContainer: React.FC<PropsWithChildren> = ({ children }) => {
+  const mainRef = useRef<HTMLDivElement>(null)
+  const scrollSoother = useRef<ScrollSmoother>(null)
+
+  useGSAP(
+    () => {
+      scrollSoother.current = ScrollSmoother.create({
+        smooth: 2,
+        effects: true,
+        normalizeScroll: true,
+      })
+    },
+    {
+      dependencies: [],
+      scope: mainRef,
+    },
+  )
+
   return (
-    <div
-      className={classNames(
-        'h-screen',
-        'w-screen',
-        'flex',
-        'flex-col',
-        'items-stretch',
-        'bg-black',
-        'overflow-hidden',
-      )}
-    >
-      {children}
-    </div>
+    <main id={'smooth-wrapper'} ref={mainRef}>
+      <div id={'smooth-content'} className={classNames('overflow-visible', 'w-full', 'h-[200vh]')}>
+        {children}
+      </div>
+    </main>
   )
 }
 export default observer(PageContainer)
