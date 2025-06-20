@@ -9,10 +9,7 @@ import SectionFive from '@/pages/ HomePage/SectionFive.tsx'
 import SectionSix from '@/pages/ HomePage/SectionSix.tsx'
 import SectionOne from '@/pages/ HomePage/SectionOne.tsx'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const HomePage: React.FC = () => {
   const pageRef = useRef<HTMLDivElement>(null)
