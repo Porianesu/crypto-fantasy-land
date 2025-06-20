@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import styles from './HomePage.module.css'
 import classNames from 'classnames'
+import SectionTwo from '@/pages/ HomePage/SectionTwo.tsx'
 
 const HomePage: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const HomePage: React.FC = () => {
           Throne.
         </div>
       </section>
+      <SectionTwo />
       <footer className={styles.footer}>© Address Fantasy 2025</footer>
     </div>
   )

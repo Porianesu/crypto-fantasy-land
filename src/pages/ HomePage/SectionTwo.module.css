@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+.sectionContainer {
+    @apply pb-26;
+
+    .title {
+        @apply text-4xl text-[#D6B065] mb-6;
+    }
+
+    .description {
+        @apply text-lg leading-7.5 mb-2;
+    }
+
+    .contentContainer {
+        @apply flex flex-row items-start;
+
+        .cardsTemplate {
+            @apply w-119.5 h-108 mr-14;
+            @apply bg-[url(/src/assets/images/home_page/cards_template.png)] bg-cover bg-center bg-no-repeat;
+        }
+
+        .content {
+            @apply text-base w-156 leading-7.5 pt-12;
+        }
+
+        .divideLine {
+            @apply my-4;
+        }
+    }
+}

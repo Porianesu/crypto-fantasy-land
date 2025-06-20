@@ -24,8 +24,7 @@
 
 html,
 body {
-    margin: 0;
-    padding: 0;
+    @apply m-0 p-0;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
 
@@ -40,7 +39,7 @@ body {
 }
 
 main {
-    @apply w-screen h-screen;
+    @apply w-screen h-screen text-[#E6CCAF];
 }
 
 section {
