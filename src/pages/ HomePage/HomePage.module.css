@@ -2,7 +2,8 @@
 
 .pageContainer {
     @apply w-full flex flex-col items-stretch;
-    @apply bg-[url(/src/assets/images/home_page/background.png)] bg-cover bg-center bg-no-repeat;
+    @apply bg-[url(/src/assets/images/home_page/background.png)] bg-top-left bg-no-repeat;
+    background-size: 100% auto;
 
     .header {
         @apply flex flex-row items-center justify-between pt-6.5 px-66;

@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+.sectionContainer {
+    @apply pb-41;
+
+    .title {
+        @apply text-4xl text-[#D6B065] mb-11;
+    }
+
+    .description {
+        @apply text-lg leading-7.5 mb-14;
+    }
+
+    .contentContainer {
+        @apply size-130 flex flex-col items-center justify-start pt-15;
+        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_background.png)] bg-contain bg-center bg-no-repeat;
+
+        .cardTemplate {
+            @apply w-72.5 h-105 relative;
+            @apply bg-[url(/src/assets/images/home_page/section_four/card_template.png)] bg-contain bg-center bg-no-repeat;
+        }
+    }
+}
+
+.cardInfoContainer {
+    @apply absolute z-10 w-85 h-51 flex flex-col items-stretch justify-start py-4.5 px-5 text-white;
+    @apply bg-[url(/src/assets/images/home_page/section_four/card_info_background.png)] bg-contain bg-center bg-no-repeat;
+
+    .cardInfoNumber {
+        @apply opacity-10 absolute right-4 top-1 italic text-8xl font-extrabold -z-10;
+    }
+
+    .cardInfoTitle {
+        @apply text-2xl mb-2;
+    }
+
+    .cardInfoDescription {
+        @apply text-base;
+    }
+}
+
+.cardInfoContainer1 {
+    @apply top-6 -left-102;
+}
+
+.cardInfoContainer2 {
+    @apply top-68 -left-102;
+}
+
+.cardInfoContainer3 {
+    @apply top-6 -right-102;
+}
+
+.cardInfoContainer4 {
+    @apply top-68 -right-95;
+}
+
+
+.lineContainer {
+    @apply absolute z-20;
+
+    .startDot {
+        @apply size-4 absolute right-0 bottom-0 transform translate-x-1/2 translate-y-1/2;
+        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
+    }
+
+    .startDotReversed {
+        @apply size-4 absolute left-0 bottom-0 transform -translate-x-1/2 translate-y-1/2;
+        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
+    }
+
+    .line {
+        @apply w-full h-full;
+    }
+
+    .endDot {
+        @apply size-2 absolute left-0 top-0 transform -translate-x-1/2 -translate-y-1/2;
+        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
+    }
+
+    .endDotReversed {
+        @apply size-2 absolute right-0 top-0 transform translate-x-1/2 -translate-y-1/2;
+        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
+    }
+}
+
+.lineContainer1 {
+    @apply w-21 h-10.5 top-7.5 -left-17.5;
+}
+
+.lineContainer2 {
+    @apply w-34 h-20 top-69 -left-18;
+}
+
+.lineContainer3 {
+    @apply w-38.5 h-25 top-7.5 -right-17.5;
+}
+
+.lineContainer4 {
+    @apply w-18 h-24 top-69 -right-10;
+}

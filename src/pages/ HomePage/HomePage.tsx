@@ -4,6 +4,7 @@ import styles from './HomePage.module.css'
 import classNames from 'classnames'
 import SectionTwo from '@/pages/ HomePage/SectionTwo.tsx'
 import SectionThree from '@/pages/ HomePage/SectionThree.tsx'
+import SectionFour from '@/pages/ HomePage/SectionFour.tsx'
 
 const HomePage: React.FC = () => {
   return (
@@ -29,6 +30,7 @@ const HomePage: React.FC = () => {
       </section>
       <SectionTwo></SectionTwo>
       <SectionThree></SectionThree>
+      <SectionFour></SectionFour>
       <footer className={styles.footer}>© Address Fantasy 2025</footer>
     </div>
   )
