@@ -28,7 +28,7 @@ const PageContainer: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <main id={'smooth-wrapper'} ref={mainRef}>
-      <div id={'smooth-content'} className={classNames('overflow-visible', 'w-full', 'h-[200vh]')}>
+      <div id={'smooth-content'} className={classNames('w-full')}>
         {children}
       </div>
     </main>

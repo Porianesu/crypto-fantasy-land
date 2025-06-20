@@ -4,7 +4,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { ROOT_PATH } from '@/navigation/routes.tsx'
 import PageContainer from '@/components/PageContainer.tsx'
 import { StoreProvider } from '@/stores/StoreProvider.tsx'
-import TestPage from '@/pages/TestPage.tsx'
+import HomePage from '@/pages/ HomePage/HomePage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <TestPage />,
+        element: <HomePage />,
       },
     ],
   },

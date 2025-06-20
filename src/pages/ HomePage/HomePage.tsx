@@ -1,0 +1,31 @@
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import styles from './HomePage.module.css'
+import classNames from 'classnames'
+
+const HomePage: React.FC = () => {
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.heroesPartContainer}>
+        <div className={styles.heroesContainer}>
+          {new Array(5).fill(0).map((_, index) => (
+            <div key={index} className={styles[`hero${index + 1}`]}></div>
+          ))}
+        </div>
+        <div className={styles.heroesCover}></div>
+      </div>
+      <div className={styles.header}>
+        <div className={styles.gameIcon}></div>
+        <button className={classNames('button', styles.playButton)}>Play Game</button>
+      </div>
+      <section className={styles.sectionContainer}>
+        <div className={styles.title}>Legends Aren't Born. They're Minted.</div>
+        <div className={styles.description}>
+          Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
+          Throne.
+        </div>
+      </section>
+    </div>
+  )
+}
+export default observer(HomePage)
