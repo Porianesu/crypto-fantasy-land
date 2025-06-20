@@ -7,6 +7,7 @@ import SectionThree from '@/pages/ HomePage/SectionThree.tsx'
 import SectionFour from '@/pages/ HomePage/SectionFour.tsx'
 import SectionFive from '@/pages/ HomePage/SectionFive.tsx'
 import SectionSix from '@/pages/ HomePage/SectionSix.tsx'
+import SectionOne from '@/pages/ HomePage/SectionOne.tsx'
 
 const HomePage: React.FC = () => {
   const goGamePage = () => {
@@ -29,13 +30,7 @@ const HomePage: React.FC = () => {
           Play Game
         </button>
       </div>
-      <section className={styles.sectionContainer}>
-        <div className={styles.title}>Legends Aren't Born. They're Minted.</div>
-        <div className={styles.description}>
-          Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
-          Throne.
-        </div>
-      </section>
+      <SectionOne></SectionOne>
       <SectionTwo></SectionTwo>
       <SectionThree></SectionThree>
       <SectionFour></SectionFour>
