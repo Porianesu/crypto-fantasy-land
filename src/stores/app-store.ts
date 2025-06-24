@@ -1,26 +1,37 @@
 import type { Store } from '@/stores/index.ts'
-import { action, makeAutoObservable, observable } from 'mobx'
+import { action, flow, makeAutoObservable, observable } from 'mobx'
+import { preloadPages } from '@/navigation/routes.tsx'
 
 export default class StoresStore {
   rootStoreRef: Store
 
-  count: number = 0
+  isAppLoading = true
 
   constructor(rootStore: Store) {
     this.rootStoreRef = rootStore
     makeAutoObservable(this, {
       rootStoreRef: observable,
       resetStore: action,
-      count: observable,
-      setCount: action,
+      isAppLoading: observable,
+      initData: flow.bound,
     })
   }
 
-  resetStore = () => {
-    this.count = 0
-  }
+  resetStore = () => {};
 
-  setCount = (count: number) => {
-    this.count = count
+  *initData() {
+    if (!this.isAppLoading) return
+    this.isAppLoading = true
+    try {
+      preloadPages().then(() => {
+        this.rootStoreRef.preloadStore.preloadResult.pagesPreloadProgress = 1
+      })
+      this.rootStoreRef.preloadStore.loadCreateJS().then(() => {
+        this.rootStoreRef.preloadStore.preloadAssets()
+      })
+    } catch (e) {
+      console.log('Error preloading assets:', e)
+    }
+    this.isAppLoading = false
   }
 }

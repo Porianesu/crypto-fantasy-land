@@ -12,6 +12,7 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.1.7",
+    "bignumber.js": "^9.3.0",
     "classnames": "^2.5.1",
     "gsap": "^3.13.0",
     "mobx": "^6.13.7",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@types/createjs": "^0.0.32",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react-swc": "^3.9.0",

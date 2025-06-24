@@ -23,3 +23,11 @@ export const homePageLoader = () => {
   }
   return null
 }
+
+export const preloadPages = async () => {
+  try {
+    await import('@/pages/HomePage/HomePage.tsx')
+  } catch (e) {
+    console.error('Error preloading CardPage:', e)
+  }
+}
