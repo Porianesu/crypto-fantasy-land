@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+
+@keyframes icon-bounce {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+    }
+    50% {
+        transform: scale(1.08) translateY(-10px);
+    }
+}
+
+.pageContainer {
+    @apply w-full h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#ffecd2] to-[#fcb69f] relative overflow-hidden;
+
+    .gameIcon {
+        @apply w-32 h-16 cursor-pointer mb-8;
+        @apply bg-[url(/src/assets/images/home_page/game_icon.png)] bg-cover bg-center bg-no-repeat;
+        animation: icon-bounce 1.6s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    @keyframes loading-glow {
+        from {
+            filter: drop-shadow(0 2px 8px #ffb34788) brightness(1);
+        }
+        to {
+            filter: drop-shadow(0 4px 16px #ff7e5f88) brightness(1.2);
+        }
+    }
+
+    .progressBarWrapper {
+        @apply w-full flex justify-center mb-4;
+    }
+
+    .progressBarBg {
+        @apply w-72 h-4 rounded-full bg-[#ffe0c3] shadow-inner overflow-hidden;
+        border: 1.5px solid #ffb347;
+    }
+
+    .progressBarFill {
+        @apply h-full rounded-full transition-all duration-500;
+        background: linear-gradient(90deg, #ffb347 0%, #ff7e5f 100%);
+        box-shadow: 0 0 8px #ffb34788;
+    }
+}

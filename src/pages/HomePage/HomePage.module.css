@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .pageContainer {
-    @apply w-full flex flex-col items-stretch;
+    @apply w-full flex flex-col items-stretch bg-[#160D16];
     @apply bg-[url(/src/assets/images/home_page/background.png)] bg-top-left bg-no-repeat;
     background-size: 100% auto;
 
