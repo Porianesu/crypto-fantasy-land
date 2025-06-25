@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import React, { type RefObject, useRef } from 'react'
 import styles from './SectionOne.module.css'
 import { useGSAP } from '@gsap/react'
 import { SplitText } from 'gsap/SplitText'
 import { gsap } from 'gsap'
 
-const SectionOne: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null)
+const SectionOne: React.FC<{
+  pageRef: RefObject<HTMLDivElement>
+}> = ({ pageRef }) => {
   const descriptionRef = useRef<HTMLDivElement>(null)
   useGSAP(
     () => {
@@ -30,7 +31,7 @@ const SectionOne: React.FC = () => {
     },
     {
       dependencies: [],
-      scope: sectionRef,
+      scope: pageRef,
       revertOnUpdate: true,
     },
   )
