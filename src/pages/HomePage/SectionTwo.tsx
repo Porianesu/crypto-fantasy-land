@@ -11,6 +11,7 @@ const SectionTwo: React.FC = () => {
   const descriptionRef = useRef<HTMLDivElement>(null)
   const contentTextRef = useRef<HTMLDivElement>(null)
   const cardsTemplateRef = useRef<HTMLDivElement>(null)
+
   useGSAP(
     () => {
       // Pin the section
@@ -22,7 +23,7 @@ const SectionTwo: React.FC = () => {
           end: 'bottom 20%',
           pin: true,
           pinSpacing: true,
-          scrub: true,
+          scrub: 0.4,
         },
       })
       const animationInTimeline = gsap.timeline({
@@ -31,7 +32,7 @@ const SectionTwo: React.FC = () => {
           trigger: sectionRef.current,
           start: 'top 80%',
           end: 'bottom 20%',
-          scrub: true,
+          scrub: 0.4,
         },
       })
       SplitText.create(contentTextRef.current, {
@@ -42,19 +43,23 @@ const SectionTwo: React.FC = () => {
         linesClass: 'line',
         reduceWhiteSpace: false,
         onSplit: (splitText) => {
-          animationInTimeline.from(
-            splitText.lines,
-            {
-              id: 'contentText',
-              y: 100,
-              autoAlpha: 0,
-              duration: 0.8,
-              stagger: {
-                each: 0.2,
+          animationInTimeline
+            .from(
+              splitText.lines,
+              {
+                id: 'contentText',
+                y: 100,
+                autoAlpha: 0,
+                duration: 0.8,
+                stagger: {
+                  each: 0.2,
+                },
               },
-            },
-            '1.6',
-          )
+              '1.6',
+            )
+            .to(titleRef.current, {
+              duration: 0.8,
+            })
         },
       })
       animationInTimeline
@@ -94,6 +99,7 @@ const SectionTwo: React.FC = () => {
       scope: sectionRef,
     },
   )
+
   return (
     <section className={styles.sectionContainer} ref={sectionRef}>
       <div className={styles.title} ref={titleRef}>
