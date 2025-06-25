@@ -13,20 +13,31 @@ import { useGSAP } from '@gsap/react'
 
 const HomePage: React.FC = () => {
   const pageRef = useRef<HTMLDivElement>(null)
-  const heroesRef = useRef<HTMLDivElement>(null)
+  const heroesCoverRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
+  const heroItemRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        heroesRef.current,
-        { opacity: 0, y: 60 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power2.out' },
-      )
+      gsap.from(heroItemRefs.current, {
+        autoAlpha: 0,
+        yPercent: 40,
+        duration: 0.8,
+        stagger: {
+          each: 0.2,
+          from: 'center',
+        },
+        ease: 'power2.out',
+      })
       gsap.fromTo(
         headerRef.current,
-        { opacity: 0, y: -40 },
-        { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power2.out' },
+        { autoAlpha: 0, y: -40 },
+        { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out' },
+      )
+      gsap.fromTo(
+        heroesCoverRef.current,
+        { autoAlpha: 0, yPercent: 50 },
+        { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out' },
       )
     },
     {
@@ -41,13 +52,19 @@ const HomePage: React.FC = () => {
 
   return (
     <div className={styles.pageContainer} ref={pageRef}>
-      <div className={styles.heroesPartContainer} ref={heroesRef}>
+      <div className={styles.heroesPartContainer}>
         <div className={styles.heroesContainer}>
           {new Array(5).fill(0).map((_, index) => (
-            <div key={index} className={styles[`hero${index + 1}`]}></div>
+            <div
+              key={index}
+              className={styles[`hero${index + 1}`]}
+              ref={(el) => {
+                heroItemRefs.current[index] = el
+              }}
+            ></div>
           ))}
         </div>
-        <div className={styles.heroesCover}></div>
+        <div className={styles.heroesCover} ref={heroesCoverRef}></div>
       </div>
       <div className={styles.header} ref={headerRef}>
         <button className={classNames(styles.gameIcon, 'button')} onClick={goGamePage}></button>
