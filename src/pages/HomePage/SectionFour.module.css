@@ -12,14 +12,22 @@
     }
 
     .contentContainer {
-        @apply size-130 flex flex-col items-center justify-start pt-15;
-        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_background.png)] bg-contain bg-center bg-no-repeat;
+        @apply size-130 flex flex-col items-center justify-start pt-15 relative;
+
+        .contentBackground {
+            @apply absolute size-full inset-0 z-0;
+            @apply bg-[url(/src/assets/images/home_page/section_four/card_template_background.png)] bg-contain bg-center bg-no-repeat;
+        }
 
         .cardTemplate {
             @apply w-72.5 h-105 relative;
-            @apply bg-[url(/src/assets/images/home_page/section_four/card_template.png)] bg-contain bg-center bg-no-repeat;
         }
     }
+}
+
+.cardTemplateBackground {
+    @apply size-full absolute inset-0 z-0;
+    @apply bg-[url(/src/assets/images/home_page/section_four/card_template.png)] bg-contain bg-center bg-no-repeat;
 }
 
 .cardInfoContainer {
@@ -60,12 +68,12 @@
     @apply absolute z-20;
 
     .startDot {
-        @apply size-4 absolute right-0 bottom-0 transform translate-x-1/2 translate-y-1/2;
+        @apply size-4 absolute -right-2 -bottom-2;
         @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
     }
 
     .startDotReversed {
-        @apply size-4 absolute left-0 bottom-0 transform -translate-x-1/2 translate-y-1/2;
+        @apply size-4 absolute -left-2 -bottom-2;
         @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
     }
 
@@ -74,12 +82,12 @@
     }
 
     .endDot {
-        @apply size-2 absolute left-0 top-0 transform -translate-x-1/2 -translate-y-1/2;
+        @apply size-2 absolute -left-1 -top-1;
         @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
     }
 
     .endDotReversed {
-        @apply size-2 absolute right-0 top-0 transform translate-x-1/2 -translate-y-1/2;
+        @apply size-2 absolute -right-1 -top-1;
         @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
     }
 }
