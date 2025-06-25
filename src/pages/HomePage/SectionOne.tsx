@@ -1,12 +1,60 @@
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from './SectionOne.module.css'
+import { useGSAP } from '@gsap/react'
+import { SplitText } from 'gsap/SplitText'
+import { gsap } from 'gsap'
 
 const SectionOne: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const descriptionRef = useRef<HTMLDivElement>(null)
+  useGSAP(
+    () => {
+      SplitText.create(descriptionRef.current, {
+        type: 'lines',
+        autoSplit: true,
+        mask: 'lines',
+        smartWrap: true,
+        linesClass: 'line',
+        reduceWhiteSpace: false,
+        onSplit: (self) => {
+          // return gsap.from(self.words, {
+          //   opacity: 0,
+          //   duration: 0.6,
+          //   yPercent: 'random([-150, 150])',
+          //   xPercent: 'random([-150, 150])',
+          //   stagger: 0.1,
+          //   ease: 'power3.out',
+          //   onComplete: () => self.revert(), // <-- restores original innerHTML
+          // })
+          // return gsap.from(self.words, {
+          //   opacity: 0,
+          //   transform:
+          //     'translate3d(-20px, 80px, 0px) rotateX(-60deg) rotateY(-20deg) rotateZ(-10deg)',
+          //   duration: 1,
+          //   stagger: 0.1,
+          //   onComplete: () => self.revert(), // <-- restores original innerHTML
+          // })
+          gsap.from(self.lines, {
+            autoAlpha: 0,
+            y: 50,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power1.out',
+          })
+        },
+      })
+    },
+    {
+      dependencies: [],
+      scope: sectionRef,
+      revertOnUpdate: true,
+    },
+  )
   return (
     <section className={styles.sectionContainer}>
       <div className={styles.title}>Legends Aren't Born. They're Minted.</div>
-      <div className={styles.description}>
+      <div className={styles.description} ref={descriptionRef}>
         Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
         Throne.
       </div>
