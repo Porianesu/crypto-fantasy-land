@@ -1,13 +1,23 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import styles from './SectionThree.module.css'
-import TournamentImage from '@/assets/images/home_page/tournamen.png'
-import TradingAbyssImage from '@/assets/images/home_page/trading_abyss.png'
-import AreneDuelImage from '@/assets/images/home_page/arena_duel.png'
+import TournamentImage from '@/assets/images/home_page/section_three/tournament.png'
+import TradingAbyssImage from '@/assets/images/home_page/section_three/trading_abyss.png'
+import AreneDuelImage from '@/assets/images/home_page/section_three/arena_duel.png'
+import TournamentImageDynamics from '@/assets/images/home_page/section_three/tournament.gif'
+import TradingAbyssImageDynamics from '@/assets/images/home_page/section_three/trading_abyss.gif'
+import AreneDuelImageDynamics from '@/assets/images/home_page/section_three/arena_duel.gif'
 
-const GAME_DATA = [
+interface IGameData {
+  image: string
+  dynamicsImage: string
+  title: string
+  description: React.ReactNode
+}
+const GAME_DATA: Array<IGameData> = [
   {
     image: TournamentImage,
+    dynamicsImage: TournamentImageDynamics,
     title: 'Tournament',
     description: (
       <>
@@ -21,6 +31,7 @@ const GAME_DATA = [
   },
   {
     image: TradingAbyssImage,
+    dynamicsImage: TradingAbyssImageDynamics,
     title: 'Trading Abyss',
     description: (
       <>
@@ -34,6 +45,7 @@ const GAME_DATA = [
   },
   {
     image: AreneDuelImage,
+    dynamicsImage: AreneDuelImageDynamics,
     title: 'Arene Duel',
     description: (
       <>
@@ -45,6 +57,17 @@ const GAME_DATA = [
     ),
   },
 ]
+
+const GameBlock = React.forwardRef<any, { game: IGameData }>(({ game }, ref) => {
+  return (
+    <div className={styles.gameContainer} key={game.title} ref={ref}>
+      <img alt={`game-${game.title}`} className={styles.gameImage} src={game.image}></img>
+      <div className={styles.gameTitle}>{game.title}</div>
+      <div className={styles.gameDescription}>{game.description}</div>
+    </div>
+  )
+})
+
 const SectionThree: React.FC = () => {
   return (
     <section className={styles.sectionContainer}>
@@ -55,13 +78,7 @@ const SectionThree: React.FC = () => {
       </div>
       <div className={styles.gamePartContainer}>
         {GAME_DATA.map((game) => {
-          return (
-            <div className={styles.gameContainer} key={game.title}>
-              <img alt={`game-${game.title}`} className={styles.gameImage} src={game.image}></img>
-              <div className={styles.gameTitle}>{game.title}</div>
-              <div className={styles.gameDescription}>{game.description}</div>
-            </div>
-          )
+          return <GameBlock key={game.title} game={game}></GameBlock>
         })}
       </div>
     </section>
