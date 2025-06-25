@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
-import { ENTRANCE_PATH, HOME_PATH, homePageLoader, ROOT_PATH } from '@/navigation/routes.tsx'
+import { ENTRANCE_PATH, HOME_PATH, ROOT_PATH } from '@/navigation/routes.tsx'
 import PageContainer from '@/components/PageContainer.tsx'
 import { StoreProvider } from '@/stores/StoreProvider.tsx'
 import EntrancePage from '@/pages/EntrancePage.tsx'
@@ -27,7 +27,6 @@ const router = createBrowserRouter([
       },
       {
         path: HOME_PATH,
-        loader: homePageLoader,
         element: <HomePage></HomePage>,
       },
     ],
