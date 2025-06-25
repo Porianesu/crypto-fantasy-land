@@ -18,23 +18,6 @@ const SectionOne: React.FC = () => {
         linesClass: 'line',
         reduceWhiteSpace: false,
         onSplit: (self) => {
-          // return gsap.from(self.words, {
-          //   opacity: 0,
-          //   duration: 0.6,
-          //   yPercent: 'random([-150, 150])',
-          //   xPercent: 'random([-150, 150])',
-          //   stagger: 0.1,
-          //   ease: 'power3.out',
-          //   onComplete: () => self.revert(), // <-- restores original innerHTML
-          // })
-          // return gsap.from(self.words, {
-          //   opacity: 0,
-          //   transform:
-          //     'translate3d(-20px, 80px, 0px) rotateX(-60deg) rotateY(-20deg) rotateZ(-10deg)',
-          //   duration: 1,
-          //   stagger: 0.1,
-          //   onComplete: () => self.revert(), // <-- restores original innerHTML
-          // })
           gsap.from(self.lines, {
             autoAlpha: 0,
             y: 50,
