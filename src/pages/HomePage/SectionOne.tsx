@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react-lite'
-import React, { type RefObject, useRef } from 'react'
+import React, { useRef } from 'react'
 import styles from './SectionOne.module.css'
 import { useGSAP } from '@gsap/react'
 import { SplitText } from 'gsap/SplitText'
 import { gsap } from 'gsap'
 
-const SectionOne: React.FC<{
-  pageRef: RefObject<HTMLDivElement>
-}> = ({ pageRef }) => {
+const SectionOne: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   useGSAP(
     () => {
@@ -31,12 +30,11 @@ const SectionOne: React.FC<{
     },
     {
       dependencies: [],
-      scope: pageRef,
-      revertOnUpdate: true,
+      scope: sectionRef,
     },
   )
   return (
-    <section className={styles.sectionContainer}>
+    <section className={styles.sectionContainer} ref={sectionRef}>
       <div className={styles.title}>Legends Aren't Born. They're Minted.</div>
       <div className={styles.description} ref={descriptionRef}>
         Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
