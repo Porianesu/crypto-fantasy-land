@@ -28,16 +28,17 @@ const HomePage: React.FC = () => {
           from: 'center',
         },
         ease: 'power2.out',
+        delay: 0.4,
       })
       gsap.fromTo(
         headerRef.current,
         { autoAlpha: 0, y: -100 },
-        { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out' },
+        { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
       )
       gsap.fromTo(
         heroesCoverRef.current,
         { autoAlpha: 0, yPercent: 50 },
-        { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out' },
+        { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
       )
     },
     {

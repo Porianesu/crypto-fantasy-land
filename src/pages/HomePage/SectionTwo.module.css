@@ -16,7 +16,7 @@
 
         .cardsTemplate {
             @apply w-119.5 h-108 mr-14;
-            @apply bg-[url(/src/assets/images/home_page/cards_template.png)] bg-cover bg-center bg-no-repeat;
+            @apply bg-[url(/src/assets/images/home_page/section_two/cards_template.png)] bg-cover bg-center bg-no-repeat;
         }
 
         .content {

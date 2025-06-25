@@ -188,6 +188,9 @@ const SectionThree: React.FC = () => {
           },
           '0',
         )
+        .to(titleRef.current, {
+          duration: 0.4,
+        })
     },
     {
       dependencies: [],
