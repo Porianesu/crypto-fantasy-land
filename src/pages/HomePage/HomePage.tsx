@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
       gsap.from(heroItemRefs.current, {
         autoAlpha: 0,
         yPercent: 40,
-        duration: 0.8,
+        duration: 1.6,
         stagger: {
           each: 0.2,
           from: 'center',
@@ -31,7 +31,7 @@ const HomePage: React.FC = () => {
       })
       gsap.fromTo(
         headerRef.current,
-        { autoAlpha: 0, y: -40 },
+        { autoAlpha: 0, y: -100 },
         { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out' },
       )
       gsap.fromTo(
