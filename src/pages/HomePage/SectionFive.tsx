@@ -215,7 +215,7 @@ const SectionFive: React.FC = () => {
           id: 'sectionFive-pin',
           trigger: sectionRef.current,
           start: 'center center',
-          end: 'bottom+=2000px',
+          end: 'bottom+=1800px',
           pin: true,
           pinSpacing: true,
           scrub: 0.4,
@@ -226,7 +226,7 @@ const SectionFive: React.FC = () => {
           id: 'sectionFive-animation-in',
           trigger: sectionRef.current,
           start: 'center 80%',
-          end: 'bottom+=2000px',
+          end: 'bottom+=1800px',
           scrub: 0.4,
         },
       })
