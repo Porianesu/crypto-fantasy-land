@@ -162,7 +162,7 @@ const SectionFour: React.FC = () => {
           id: 'sectionFour-pin',
           trigger: sectionRef.current,
           start: 'center center',
-          end: 'bottom 20%',
+          end: 'bottom+=1000px',
           pin: true,
           pinSpacing: true,
           scrub: 0.4,
@@ -173,7 +173,7 @@ const SectionFour: React.FC = () => {
           id: 'sectionFour-animation-in',
           trigger: sectionRef.current,
           start: 'center 80%',
-          end: 'bottom 20%',
+          end: 'bottom+=1000px',
           scrub: 0.4,
         },
       })
