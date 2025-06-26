@@ -97,7 +97,7 @@ const CardInfo = React.forwardRef<
           scale: 1,
           rotateY: 0,
           autoAlpha: 1,
-          duration: 0.8,
+          duration: 1.2,
           ease: 'back.out(1.7)',
         })
         .revert()
@@ -210,7 +210,7 @@ const SectionFour: React.FC = () => {
         })
       cardsInfoRefs.current.forEach((cardsInfoRef, index) => {
         if (cardsInfoRef?.timelineAnimation.current) {
-          animationInTimeline.add(cardsInfoRef.timelineAnimation.current, `${1.6 + index * 0.2}`)
+          animationInTimeline.add(cardsInfoRef.timelineAnimation.current, `${1.6 + index * 0.8}`)
         }
       })
       animationInTimeline
