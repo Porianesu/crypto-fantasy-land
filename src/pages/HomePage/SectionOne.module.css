@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 .sectionContainer {
-    @apply pt-6.5 pb-58.5;
+    /*@apply pt-6.5 pb-58.5;*/
+    @apply py-32.5;
 
     .title {
         @apply text-6xl leading-20 text-[#FF9154] font-[Duvall] max-w-187.5 text-center mb-95;

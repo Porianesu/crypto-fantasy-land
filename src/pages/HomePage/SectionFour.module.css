@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 .sectionContainer {
-    @apply pb-41;
+    /*@apply pb-41;*/
+    @apply py-20.5;
 
     .title {
         @apply text-4xl text-[#D6B065] mb-11;
