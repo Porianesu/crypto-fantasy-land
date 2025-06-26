@@ -149,6 +149,7 @@ const SectionFour: React.FC = () => {
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const backgroundRef = useRef<HTMLDivElement>(null)
+  const backgroundRotateRef = useRef<gsap.core.Tween>(null)
   const cardTemplateBackgroundRef = useRef<HTMLDivElement>(null)
   const cardsInfoRefs = useRef<Array<ICardInfoHandle | null>>([])
 
@@ -182,13 +183,29 @@ const SectionFour: React.FC = () => {
           rotate: -360,
           scale: 0,
           autoAlpha: 0,
-          duration: 0.8,
+          duration: 1.2,
+          onComplete: () => {
+            if (!backgroundRotateRef.current) {
+              backgroundRotateRef.current = gsap.to(backgroundRef.current, {
+                rotate: 360,
+                duration: 10,
+                ease: 'linear',
+                repeat: -1,
+              })
+            }
+          },
+          onUpdate: () => {
+            if (backgroundRotateRef.current) {
+              backgroundRotateRef.current.revert()
+              backgroundRotateRef.current = null
+            }
+          },
         })
         .from(cardTemplateBackgroundRef.current, {
           id: 'cardTemplateBackground',
           scale: 0,
           autoAlpha: 0,
-          duration: 0.8,
+          duration: 1.2,
           ease: 'back.out(1.7)',
         })
       cardsInfoRefs.current.forEach((cardsInfoRef, index) => {
@@ -217,6 +234,9 @@ const SectionFour: React.FC = () => {
           },
           '0',
         )
+        .to(titleRef.current, {
+          duration: 0.8,
+        })
     },
     {
       dependencies: [cardsInfoRefs.current.length],
