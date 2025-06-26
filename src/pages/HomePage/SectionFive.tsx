@@ -231,7 +231,7 @@ const SectionFive: React.FC = () => {
         },
       })
       animationInTimeline.add(textCardRefs.current[0].timelineAnimation.current)
-      animationInTimeline.add(textCardRefs.current[1].timelineAnimation.current)
+      animationInTimeline.add(textCardRefs.current[1].timelineAnimation.current, '<+=0.4')
       animationInTimeline.from(contentBackgroundRef.current, {
         scale: 0,
         autoAlpha: 0,
