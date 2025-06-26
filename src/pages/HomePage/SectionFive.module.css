@@ -18,8 +18,11 @@
     }
 
     .content {
-        @apply w-170 h-160.5 relative z-10 flex flex-col items-center justify-start;
-        @apply bg-[url(/src/assets/images/home_page/section_five/triangle_background.png)] bg-contain bg-center bg-no-repeat;
+        @apply w-170 h-160.5 z-10 flex flex-col items-center justify-start relative;
+        .contentBackground {
+            @apply size-full absolute inset-0 z-0;
+            @apply bg-[url(/src/assets/images/home_page/section_five/triangle_background.png)] bg-contain bg-center bg-no-repeat;
+        }
 
         .titleContainer {
             @apply size-20 rounded-full flex items-center justify-center text-2xl font-semibold text-center absolute z-0;

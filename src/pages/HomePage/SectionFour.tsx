@@ -205,7 +205,7 @@ const SectionFour: React.FC = () => {
           id: 'cardTemplateBackground',
           scale: 0,
           autoAlpha: 0,
-          duration: 1.2,
+          duration: 1.6,
           ease: 'back.out(1.7)',
         })
       cardsInfoRefs.current.forEach((cardsInfoRef, index) => {

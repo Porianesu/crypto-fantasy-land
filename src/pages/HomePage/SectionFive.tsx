@@ -4,7 +4,6 @@ import styles from './SectionFive.module.css'
 import classNames from 'classnames'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
-import { SplitText } from 'gsap/SplitText'
 
 function toRoman(num: number): string {
   const romanMap: [number, string][] = [
@@ -66,6 +65,8 @@ const TextCard = React.forwardRef<ITextCardHandle, { data: ITextData; index: num
   ({ data, index }, ref) => {
     const timelineAnimation = useRef<gsap.core.Timeline>(null)
     const containerRef = useRef<HTMLDivElement>(null)
+    const titleRef = useRef<HTMLDivElement>(null)
+    const descriptionRefs = useRef<Array<HTMLDivElement | null>>([])
 
     useGSAP(
       () => {
@@ -73,38 +74,27 @@ const TextCard = React.forwardRef<ITextCardHandle, { data: ITextData; index: num
           xPercent: index === 0 ? -100 : 100,
           autoAlpha: 0,
         })
+        gsap.set([titleRef.current, ...descriptionRefs.current], {
+          y: 100,
+          autoAlpha: 0,
+        })
         timelineAnimation.current = gsap.timeline({})
-        timelineAnimation.current.to(containerRef.current, {
-          xPercent: 0,
-          autoAlpha: 1,
-          duration: 0.8,
-          ease: 'back.out(1.7)',
-        })
-        SplitText.create(containerRef.current, {
-          type: 'lines',
-          autoSplit: true,
-          mask: 'lines',
-          smartWrap: true,
-          linesClass: 'line',
-          reduceWhiteSpace: false,
-          onSplit: (splitText) => {
-            if (!timelineAnimation.current) return
-            timelineAnimation.current
-              .from(
-                splitText.lines,
-                {
-                  y: 100,
-                  autoAlpha: 0,
-                  duration: 0.8,
-                  stagger: {
-                    each: 0.2,
-                  },
-                },
-                '1.6',
-              )
-              .revert()
-          },
-        })
+        timelineAnimation.current
+          .to(containerRef.current, {
+            xPercent: 0,
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+          })
+          .to([titleRef.current, ...descriptionRefs.current], {
+            y: 0,
+            autoAlpha: 1,
+            duration: 0.8,
+            stagger: {
+              each: 0.2,
+            },
+          })
+          .revert()
       },
       {
         dependencies: [],
@@ -123,9 +113,19 @@ const TextCard = React.forwardRef<ITextCardHandle, { data: ITextData; index: num
         className={classNames(styles.infoContainer, styles[`infoContainer${index + 1}`])}
         ref={containerRef}
       >
-        <div className={styles.infoTitle}>{data.title}</div>
+        <div className={styles.infoTitle} ref={titleRef}>
+          {data.title}
+        </div>
         {data.description.map((item, index) => (
-          <div key={item} className={styles.infoDescription}>
+          <div
+            key={item}
+            className={styles.infoDescription}
+            ref={(el) => {
+              if (el) {
+                descriptionRefs.current[index] = el
+              }
+            }}
+          >
             <div>{toRoman(index + 1)}</div>
             {item}
           </div>
@@ -135,26 +135,59 @@ const TextCard = React.forwardRef<ITextCardHandle, { data: ITextData; index: num
   },
 )
 
-const TriangleData = [
+const TriangleData: Array<{
+  title?: string
+  description: string
+  center?: boolean
+  tweenVars: gsap.TweenVars
+}> = [
   {
     title: 'USDx',
     description: 'Buy Faithcoins with USDx',
+    tweenVars: {
+      yPercent: -100,
+      autoAlpha: 0,
+      duration: 0.8,
+    },
   },
   {
     title: 'Faithcoins',
     description: 'Buy Packs with Faithcoins',
     center: true,
+    tweenVars: {
+      xPercent: 100,
+      yPercent: -100,
+      autoAlpha: 0,
+      duration: 0.8,
+    },
   },
   {
     title: 'Card Pack',
     description: 'Open Packs to Collect Cards',
+    tweenVars: {
+      xPercent: -100,
+      autoAlpha: 0,
+      duration: 0.8,
+    },
   },
   {
     title: 'Card',
     description: 'Burn Cards to Earn Faithcoins',
+    tweenVars: {
+      xPercent: 100,
+      yPercent: 100,
+      autoAlpha: 0,
+      duration: 0.8,
+    },
   },
   {
     description: 'Use Faithcoins to Fuse Cards',
+    tweenVars: {
+      yPercent: -100,
+      xPercent: -100,
+      autoAlpha: 0,
+      duration: 0.8,
+    },
   },
 ]
 const SectionFive: React.FC = () => {
@@ -162,17 +195,27 @@ const SectionFive: React.FC = () => {
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const textCardRefs = useRef<Array<ITextCardHandle>>([])
+  const contentBackgroundRef = useRef<HTMLDivElement>(null)
+  const contentTitleRefs = useRef<Array<HTMLDivElement | null>>([])
+  const contentDescriptionRefs = useRef<Array<HTMLDivElement | null>>([])
+  const contentArrowRefs = useRef<Array<HTMLDivElement | null>>([])
+  const contentEllipseRef = useRef<HTMLDivElement>(null)
+  const contentEllipseRotateRef = useRef<gsap.core.Tween>(null)
 
   useGSAP(
     () => {
-      if (!textCardRefs.current.length) return
+      if (
+        !textCardRefs.current[0]?.timelineAnimation.current ||
+        !textCardRefs.current[1]?.timelineAnimation.current
+      )
+        return
       // Pin the section
       gsap.timeline({
         scrollTrigger: {
           id: 'sectionFive-pin',
           trigger: sectionRef.current,
           start: 'center center',
-          end: 'bottom 20%',
+          end: 'bottom+=2000px',
           pin: true,
           pinSpacing: true,
           scrub: 0.4,
@@ -183,20 +226,59 @@ const SectionFive: React.FC = () => {
           id: 'sectionFive-animation-in',
           trigger: sectionRef.current,
           start: 'center 80%',
-          end: 'bottom 20%',
+          end: 'bottom+=2000px',
           scrub: 0.4,
         },
       })
-      if (textCardRefs.current[0]?.timelineAnimation.current) {
-        console.log(
-          'Adding first text card animation',
-          textCardRefs.current[0].timelineAnimation.current,
-        )
-        animationInTimeline.add(textCardRefs.current[0].timelineAnimation.current)
-      }
-      if (textCardRefs.current[1]?.timelineAnimation.current) {
-        animationInTimeline.add(textCardRefs.current[1].timelineAnimation.current)
-      }
+      animationInTimeline.add(textCardRefs.current[0].timelineAnimation.current)
+      animationInTimeline.add(textCardRefs.current[1].timelineAnimation.current)
+      animationInTimeline.from(contentBackgroundRef.current, {
+        scale: 0,
+        autoAlpha: 0,
+        duration: 1.6,
+        ease: 'back.out(1.7)',
+      })
+      TriangleData.forEach((data, index) => {
+        if (data.title) {
+          animationInTimeline.from(contentTitleRefs.current[index], {
+            scale: 0,
+            autoAlpha: 0,
+            duration: 0.8,
+            ease: 'back.out(1.7)',
+          })
+        }
+        if (data.center) {
+          animationInTimeline.from(
+            contentEllipseRef.current,
+            {
+              rotate: -360,
+              scale: 0,
+              autoAlpha: 0,
+              duration: 1.2,
+              ease: 'back.out(1.7)',
+              onComplete: () => {
+                if (!contentEllipseRotateRef.current) {
+                  contentEllipseRotateRef.current = gsap.to(contentEllipseRef.current, {
+                    rotate: 360,
+                    duration: 40,
+                    ease: 'linear',
+                    repeat: -1,
+                  })
+                }
+              },
+              onUpdate: () => {
+                if (contentEllipseRotateRef.current) {
+                  contentEllipseRotateRef.current.revert()
+                  contentEllipseRotateRef.current = null
+                }
+              },
+            },
+            '<',
+          )
+        }
+        animationInTimeline.from(contentDescriptionRefs.current[index], data.tweenVars)
+        animationInTimeline.from(contentArrowRefs.current[index], data.tweenVars, '<')
+      })
       animationInTimeline
         .from(
           titleRef.current,
@@ -223,7 +305,10 @@ const SectionFive: React.FC = () => {
         })
     },
     {
-      dependencies: [textCardRefs.current.length],
+      dependencies: [
+        Boolean(textCardRefs.current[0]?.timelineAnimation.current),
+        Boolean(textCardRefs.current[1]?.timelineAnimation.current),
+      ],
       scope: sectionRef,
     },
   )
@@ -250,6 +335,7 @@ const SectionFive: React.FC = () => {
           ></TextCard>
         ))}
         <div className={styles.content}>
+          <div className={styles.contentBackground} ref={contentBackgroundRef}></div>
           {TriangleData.map((data, index) => {
             const number = index + 1
             return (
@@ -257,8 +343,17 @@ const SectionFive: React.FC = () => {
                 {data.title ? (
                   data.center ? (
                     <div className={styles.titleCenterContainer}>
-                      <div className={styles.titleEllipse}></div>
-                      <div className={styles.titleCenterInsideContainer}>{data.title}</div>
+                      <div className={styles.titleEllipse} ref={contentEllipseRef}></div>
+                      <div
+                        className={styles.titleCenterInsideContainer}
+                        ref={(el) => {
+                          if (el) {
+                            contentTitleRefs.current[index] = el
+                          }
+                        }}
+                      >
+                        {data.title}
+                      </div>
                     </div>
                   ) : (
                     <div
@@ -266,6 +361,11 @@ const SectionFive: React.FC = () => {
                         styles.titleContainer,
                         styles[`titleContainer${number}`],
                       )}
+                      ref={(el) => {
+                        if (el) {
+                          contentTitleRefs.current[index] = el
+                        }
+                      }}
                     >
                       {data.title}
                     </div>
@@ -273,10 +373,22 @@ const SectionFive: React.FC = () => {
                 ) : null}
                 <div
                   className={classNames(styles.dataDescription, styles[`dataDescription${number}`])}
+                  ref={(el) => {
+                    if (el) {
+                      contentDescriptionRefs.current[index] = el
+                    }
+                  }}
                 >
                   {data.description}
                 </div>
-                <div className={classNames(styles.dataArrow, styles[`dataArrow${number}`])}></div>
+                <div
+                  className={classNames(styles.dataArrow, styles[`dataArrow${number}`])}
+                  ref={(el) => {
+                    if (el) {
+                      contentArrowRefs.current[index] = el
+                    }
+                  }}
+                ></div>
               </Fragment>
             )
           })}
