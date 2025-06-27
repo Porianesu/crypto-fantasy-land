@@ -29,14 +29,14 @@
     }
 
     .heroesPartContainer {
-        @apply flex flex-col items-center justify-start absolute top-58 w-full z-0;
+        @apply flex flex-col items-center justify-start absolute top-65 w-full z-0;
 
         .heroesContainer {
             @apply flex flex-row items-start z-0;
         }
 
         .heroesCover {
-            @apply w-full h-509.25 z-10 -mt-122;
+            @apply w-full h-509.25 z-10 -mt-87;
             @apply bg-[url(/src/assets/images/home_page/heros_cover.png)] bg-top-left bg-no-repeat;
             background-size: 100% auto;
         }
@@ -48,26 +48,26 @@
 }
 
 .hero1 {
-    @apply w-73 h-120 -mr-24 z-0 translate-y-35;
+    @apply w-73 h-110 -mr-29 z-0 translate-y-32.5;
     @apply bg-[url(/src/assets/images/home_page/hero_1.png)] bg-cover bg-center bg-no-repeat;
 }
 
 .hero2 {
-    @apply w-110 h-165 -mr-45.5 z-10 translate-y-15;
+    @apply w-89 h-133 -mr-30 z-10 translate-y-25;
     @apply bg-[url(/src/assets/images/home_page/hero_2.png)] bg-cover bg-center bg-no-repeat;
 }
 
 .hero3 {
-    @apply w-130 h-195.5 -mr-29.5 z-20;
+    @apply w-102.5 h-153.5 -mr-25.5 z-20;
     @apply bg-[url(/src/assets/images/home_page/hero_3.png)] bg-cover bg-center bg-no-repeat;
 }
 
 .hero4 {
-    @apply w-86.5 h-125.5 -mr-15 z-10 translate-y-23;
+    @apply w-82 h-123 -mr-30 z-0 translate-y-23;
     @apply bg-[url(/src/assets/images/home_page/hero_4.png)] bg-cover bg-center bg-no-repeat;
 }
 
 .hero5 {
-    @apply w-86 h-129 z-0 translate-y-26;
+    @apply w-88 h-132 z-10 translate-y-26;
     @apply bg-[url(/src/assets/images/home_page/hero_5.png)] bg-cover bg-center bg-no-repeat;
 }

@@ -10,6 +10,10 @@ import SectionSix from '@/pages/HomePage/SectionSix.tsx'
 import SectionOne from '@/pages/HomePage/SectionOne.tsx'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
 const HomePage: React.FC = () => {
   const pageRef = useRef<HTMLDivElement>(null)
@@ -19,27 +23,32 @@ const HomePage: React.FC = () => {
 
   useGSAP(
     () => {
-      gsap.from(heroItemRefs.current, {
-        autoAlpha: 0,
-        yPercent: 40,
-        duration: 1.6,
-        stagger: {
-          each: 0.2,
-          from: 'center',
-        },
-        ease: 'power2.out',
-        delay: 0.4,
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (!isDesktop) return
+        gsap.from(heroItemRefs.current, {
+          autoAlpha: 0,
+          yPercent: 40,
+          duration: 1.6,
+          stagger: {
+            each: 0.2,
+            from: 'center',
+          },
+          ease: 'power2.out',
+          delay: 0.4,
+        })
+        gsap.fromTo(
+          headerRef.current,
+          { autoAlpha: 0, y: -100 },
+          { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
+        )
+        gsap.fromTo(
+          heroesCoverRef.current,
+          { autoAlpha: 0, yPercent: 50 },
+          { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
+        )
       })
-      gsap.fromTo(
-        headerRef.current,
-        { autoAlpha: 0, y: -100 },
-        { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
-      )
-      gsap.fromTo(
-        heroesCoverRef.current,
-        { autoAlpha: 0, yPercent: 50 },
-        { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
-      )
     },
     {
       scope: pageRef,
