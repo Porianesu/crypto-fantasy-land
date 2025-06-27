@@ -39,7 +39,7 @@ const TextData: Array<ITextData> = [
   {
     title: 'Faithcoin Generation',
     description: [
-      'Earn Faithcoin by completing quests, crafting items, and trading with other players.',
+      'Earned by dismantling cards',
       'Earned by completing daily and weekly missions',
       'Earn Faithcoins through top-ups',
       'In-Game Battle Rewards',
@@ -126,7 +126,7 @@ const TextCard = React.forwardRef<ITextCardHandle, { data: ITextData; index: num
               }
             }}
           >
-            <div>{toRoman(index + 1)}</div>
+            <div className={styles.serialNumber}>{toRoman(index + 1)}</div>
             {item}
           </div>
         ))}

@@ -19,6 +19,7 @@
 
     .content {
         @apply w-170 h-160.5 z-10 flex flex-col items-center justify-start relative;
+
         .contentBackground {
             @apply size-full absolute inset-0 z-0;
             @apply bg-[url(/src/assets/images/home_page/section_five/triangle_background.png)] bg-contain bg-center bg-no-repeat;
@@ -81,17 +82,17 @@
     @apply bg-[url(/src/assets/images/home_page/section_five/arrow_2.png)];
 }
 
-.dataArrow3{
+.dataArrow3 {
     @apply w-77 h-3 top-119 left-44;
     @apply bg-[url(/src/assets/images/home_page/section_five/arrow_3.png)];
 }
 
-.dataArrow4{
+.dataArrow4 {
     @apply w-22 h-20 top-94 left-108;
     @apply bg-[url(/src/assets/images/home_page/section_five/arrow_4.png)];
 }
 
-.dataArrow5{
+.dataArrow5 {
     @apply w-22 h-20 top-98 left-106;
     @apply bg-[url(/src/assets/images/home_page/section_five/arrow_5.png)];
 }
@@ -111,18 +112,18 @@
 }
 
 .infoContainer {
-    @apply absolute w-81 h-126 flex flex-col items-stretch justify-start text-white py-9.5 px-4 gap-y-4 top-17.5;
+    @apply absolute w-81 h-126 flex flex-col items-stretch justify-start text-white py-9.5 pl-4 pr-1 top-17.5;
     @apply bg-contain bg-center bg-no-repeat;
 
     .infoTitle {
-        @apply text-2xl font-semibold;
+        @apply text-2xl font-semibold mb-4;
     }
 
     .infoDescription {
-        @apply text-base flex flex-row items-start;
+        @apply text-base flex flex-row items-start mb-3;
 
-        & > div {
-            @apply text-2xl mr-2;
+        .serialNumber {
+            @apply w-8 flex items-center justify-center text-center shrink-0 text-2xl mr-1;
         }
     }
 }
