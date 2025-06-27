@@ -47,7 +47,6 @@ export default class PreloadStore {
   get preloadProgress() {
     return new BigNumber(this.preloadResult.assetPreloadProgress)
       .plus(this.preloadResult.pagesPreloadProgress)
-      .dividedBy(2)
       .decimalPlaces(2)
       .toNumber()
   }

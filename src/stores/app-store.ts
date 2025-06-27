@@ -1,6 +1,5 @@
 import type { Store } from '@/stores/index.ts'
 import { action, flow, makeAutoObservable, observable } from 'mobx'
-import { preloadPages } from '@/navigation/routes.tsx'
 
 export default class StoresStore {
   rootStoreRef: Store
@@ -23,9 +22,9 @@ export default class StoresStore {
     if (!this.isAppLoading) return
     this.isAppLoading = true
     try {
-      preloadPages().then(() => {
-        this.rootStoreRef.preloadStore.preloadResult.pagesPreloadProgress = 1
-      })
+      // preloadPages().then(() => {
+      //   this.rootStoreRef.preloadStore.preloadResult.pagesPreloadProgress = 1
+      // })
       this.rootStoreRef.preloadStore.loadCreateJS().then(() => {
         this.rootStoreRef.preloadStore.preloadAssets()
       })
