@@ -8,6 +8,9 @@ import { gsap } from 'gsap'
 const SectionOne: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
+  const scrollHintRef = useRef<HTMLDivElement>(null)
+  const hasScrolledRef = useRef(false)
+
   useGSAP(
     () => {
       SplitText.create(descriptionRef.current, {
@@ -18,27 +21,63 @@ const SectionOne: React.FC = () => {
         linesClass: 'line',
         reduceWhiteSpace: false,
         onSplit: (self) => {
-          gsap.from(self.lines, {
+          const tl = gsap.timeline({})
+          tl.from(self.lines, {
             autoAlpha: 0,
             y: 50,
             duration: 1,
             stagger: 0.2,
             ease: 'power1.out',
           })
+            .from(scrollHintRef.current, {
+              autoAlpha: 0,
+              duration: 0.8,
+            })
+            .to(scrollHintRef.current, {
+              autoAlpha: 0,
+              duration: 0.8,
+              repeat: -1,
+              yoyo: true,
+              ease: 'power1.inOut',
+            })
+          return tl
         },
       })
+      const handleWheel = () => {
+        console.log('handleWheel')
+        if (!hasScrolledRef.current) {
+          hasScrolledRef.current = true
+          gsap.killTweensOf(scrollHintRef.current)
+          gsap.to(scrollHintRef.current, {
+            autoAlpha: 0,
+            duration: 0.5,
+            ease: 'power1.inOut',
+          })
+          window.removeEventListener('wheel', handleWheel)
+        }
+      }
+
+      window.addEventListener('wheel', handleWheel)
+      return () => {
+        window.removeEventListener('wheel', handleWheel)
+      }
     },
     {
       dependencies: [],
       scope: sectionRef,
     },
   )
+
   return (
     <section className={styles.sectionContainer} ref={sectionRef}>
       <div className={styles.title}>Legends Aren't Born. They're Minted.</div>
       <div className={styles.description} ref={descriptionRef}>
         Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
         Throne.
+      </div>
+      <div className={styles.scrollHint} ref={scrollHintRef}>
+        <div className={styles.mouseContainer}></div>
+        Scroll to Explore
       </div>
     </section>
   )
