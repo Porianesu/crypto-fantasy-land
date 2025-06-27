@@ -4,13 +4,14 @@ import styles from './SectionTwo.module.css'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
+import classNames from 'classnames'
 
 const SectionTwo: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const contentTextRef = useRef<HTMLDivElement>(null)
-  const cardsTemplateRef = useRef<HTMLDivElement>(null)
+  const cardTemplateRefs = useRef<Array<HTMLDivElement | null>>([])
 
   useGSAP(
     () => {
@@ -84,12 +85,13 @@ const SectionTwo: React.FC = () => {
           '0.8',
         )
         .from(
-          cardsTemplateRef.current,
+          cardTemplateRefs.current,
           {
             id: 'cardsTemplate',
-            y: 100,
+            rotate: -20,
             autoAlpha: 0,
-            duration: 2,
+            duration: 0.8,
+            stagger: 0.6,
           },
           '1.6',
         )
@@ -109,7 +111,21 @@ const SectionTwo: React.FC = () => {
         Real influencers become your in-game Heroes – the champions of our realm.
       </div>
       <div className={styles.contentContainer}>
-        <div className={styles.cardsTemplate} ref={cardsTemplateRef}></div>
+        <div className={styles.cardsTemplate}>
+          {new Array(4).fill(null).map((_item, index) => {
+            return (
+              <div
+                key={index}
+                ref={(el) => {
+                  if (el) {
+                    cardTemplateRefs.current[index] = el
+                  }
+                }}
+                className={classNames(styles.cardTemplate, styles[`cardTemplate${index + 1}`])}
+              ></div>
+            )
+          })}
+        </div>
         <div className={styles.content} ref={contentTextRef}>
           In Address Fantasy, every card is a real blockchain address — a wallet with a track
           record, a story, a soul.

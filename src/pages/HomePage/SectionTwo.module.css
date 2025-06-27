@@ -16,8 +16,7 @@
         @apply flex flex-row items-start;
 
         .cardsTemplate {
-            @apply w-119.5 h-108 mr-14;
-            @apply bg-[url(/src/assets/images/home_page/section_two/cards_template.png)] bg-cover bg-center bg-no-repeat;
+            @apply w-119.5 h-118 mr-14 flex flex-row items-start relative;
         }
 
         .content {
@@ -29,3 +28,49 @@
         }
     }
 }
+
+.cardTemplate {
+    @apply w-70.5 h-95 absolute;
+    @apply bg-contain bg-center bg-no-repeat;
+
+    .testDot {
+        @apply absolute size-2 rounded-full bg-red-500;
+    }
+}
+
+.cardTemplate1 {
+    @apply left-4 bottom-5 z-0 origin-[13rem_44rem];
+    @apply bg-[url(/src/assets/images/home_page/section_two/card_template_1.png)];
+
+    & > .testDot {
+        @apply left-[13rem] top-[44rem];
+    }
+}
+
+.cardTemplate2 {
+    @apply left-22 bottom-19 z-10 origin-[10rem_46rem];
+    @apply bg-[url(/src/assets/images/home_page/section_two/card_template_2.png)];
+
+    .testDot {
+        @apply left-[10rem] top-[46rem];
+    }
+}
+
+.cardTemplate3 {
+    @apply left-44 bottom-25 z-20 origin-[6rem_48rem];
+    @apply bg-[url(/src/assets/images/home_page/section_two/card_template_3.png)];
+
+    .testDot {
+        @apply left-[6rem] top-[48rem];
+    }
+}
+
+.cardTemplate4 {
+    @apply left-58.5 bottom-7 z-30 origin-[4rem_44rem];
+    @apply bg-[url(/src/assets/images/home_page/section_two/card_template_4.png)];
+
+    .testDot {
+        @apply left-[4rem] top-[44rem];
+    }
+}
+
