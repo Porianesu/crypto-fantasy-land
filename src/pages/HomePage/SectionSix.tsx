@@ -122,7 +122,10 @@ const RoadmapCard = React.forwardRef<IRoadmapHandle, { data: IRoadmapData; index
         className={classNames(styles.roadmapContainer, styles[`roadmapContainer${index + 1}`])}
         ref={containerRef}
       >
-        <div className={styles.roadmapTime} ref={timeRef}>
+        <div
+          className={classNames(styles.roadmapTime, styles[`roadmapTime${index + 1}`])}
+          ref={timeRef}
+        >
           {data.time}
         </div>
         <div className={styles.roadmapInfoContainer}>
