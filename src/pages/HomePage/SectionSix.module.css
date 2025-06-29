@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 .sectionContainer {
-    @apply text-white;
+    @apply text-white w-screen h-screen flex items-center justify-center relative;
+    @apply bg-[url(/src/assets/images/home_page/background_bottom.png)] bg-top-left bg-no-repeat;
+    background-size: 100% auto; /* 根据你的需求调整尺寸 */
     /*@apply pb-38;*/
-    @apply py-19;
 
     .title {
         @apply text-4xl text-[#D6B065] mb-20.5;

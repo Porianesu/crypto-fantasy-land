@@ -2,11 +2,8 @@
 
 .pageContainer {
     @apply w-full flex flex-col items-stretch bg-[#160D16];
-    @apply bg-[url(/src/assets/images/home_page/background.png)] bg-top-left bg-no-repeat;
-    background-image: url('/src/assets/images/home_page/background_top.png'), url('/src/assets/images/home_page/background_bottom.png');
-    background-position: top left, bottom left;
-    background-repeat: no-repeat, no-repeat;
-    background-size: 100% auto, 100% auto; /* 根据你的需求调整尺寸 */
+    @apply bg-[url(/src/assets/images/home_page/background_top.png)] bg-top-left bg-no-repeat;
+    background-size: 100% auto; /* 根据你的需求调整尺寸 */
 
     .header {
         @apply flex flex-row items-center justify-between pt-6.5 px-66;
