@@ -372,7 +372,13 @@ const SectionFive: React.FC = () => {
                   )
                 ) : null}
                 <div
-                  className={classNames(styles.dataDescription, styles[`dataDescription${number}`])}
+                  className={classNames(
+                    styles.dataDescription,
+                    styles[`dataDescription${number}`],
+                    {
+                      'max-w-34': number === 4,
+                    },
+                  )}
                   ref={(el) => {
                     if (el) {
                       contentDescriptionRefs.current[index] = el

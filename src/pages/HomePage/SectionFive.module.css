@@ -133,5 +133,5 @@
 }
 
 .infoContainer2 {
-    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_2.png)] z-20 -right-59;
+    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-20 -right-59;
 }
