@@ -93,7 +93,7 @@ const HomePage: React.FC = () => {
       </div>
       <SectionOne mobileFlag={mobileFlag}></SectionOne>
       <SectionTwo mobileFlag={mobileFlag}></SectionTwo>
-      <SectionThree></SectionThree>
+      <SectionThree mobileFlag={mobileFlag}></SectionThree>
       <SectionFour></SectionFour>
       <SectionFive></SectionFive>
       <SectionSix></SectionSix>

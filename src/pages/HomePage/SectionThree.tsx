@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { type MouseEventHandler, type RefObject, useRef } from 'react'
+import React, { type MouseEventHandler, type RefObject, useRef, useState } from 'react'
 import styles from './SectionThree.module.css'
 import TournamentImage from '@/assets/images/home_page/section_three/tournament.png'
 import TradingAbyssImage from '@/assets/images/home_page/section_three/trading_abyss.png'
@@ -10,6 +10,11 @@ import AreneDuelImageDynamics from '@/assets/images/home_page/section_three/aren
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import classNames from 'classnames'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
+import { horizontalLoop } from '@/utils/gsapUtils.ts'
 
 interface IGameData {
   image: string
@@ -122,75 +127,94 @@ const GameBlock = React.forwardRef<
   )
 })
 
-const SectionThree: React.FC = () => {
+const SectionThree: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const gameBlockRefs = useRef<Array<HTMLDivElement | null>>([])
   const isAnimationRef = useRef(false)
+  const loopRef = useRef<gsap.core.Timeline>(null)
+  const [loopIndex, setLoopIndex] = useState(0)
 
   useGSAP(
     () => {
-      // Pin the section
-      gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionThree-pin',
-          trigger: sectionRef.current,
-          start: 'center center',
-          end: 'bottom 20%',
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.4,
-        },
-      })
-      const animationInTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionThree-animation-in',
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          scrub: 0.4,
-        },
-        onStart: () => {
-          isAnimationRef.current = true
-        },
-        onComplete: () => {
-          isAnimationRef.current = false
-        },
-      })
-      animationInTimeline
-        .from(titleRef.current, {
-          id: 'title',
-          y: 40,
-          autoAlpha: 0,
-          duration: 0.8,
-        })
-        .from(
-          descriptionRef.current,
-          {
-            id: 'description',
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0',
-        )
-        .from(
-          gameBlockRefs.current,
-          {
-            id: 'gameBlocks',
-            autoAlpha: 0,
-            xPercent: 100,
-            duration: 1,
-            stagger: {
-              each: 0.2,
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          // Pin the section
+          gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionThree-pin',
+              trigger: sectionRef.current,
+              start: 'center center',
+              end: 'bottom 20%',
+              pin: true,
+              pinSpacing: true,
+              scrub: 0.4,
             },
-          },
-          '0',
-        )
-        .to(titleRef.current, {
-          duration: 0.4,
-        })
+          })
+          const animationInTimeline = gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionThree-animation-in',
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              end: 'bottom 20%',
+              scrub: 0.4,
+            },
+            onStart: () => {
+              isAnimationRef.current = true
+            },
+            onComplete: () => {
+              isAnimationRef.current = false
+            },
+          })
+          animationInTimeline
+            .from(titleRef.current, {
+              id: 'title',
+              y: 40,
+              autoAlpha: 0,
+              duration: 0.8,
+            })
+            .from(
+              descriptionRef.current,
+              {
+                id: 'description',
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.8,
+              },
+              '0',
+            )
+            .from(
+              gameBlockRefs.current,
+              {
+                id: 'gameBlocks',
+                autoAlpha: 0,
+                xPercent: 100,
+                duration: 1,
+                stagger: {
+                  each: 0.2,
+                },
+              },
+              '0',
+            )
+            .to(titleRef.current, {
+              duration: 0.4,
+            })
+        } else {
+          loopRef.current = horizontalLoop(gameBlockRefs.current, {
+            paused: true,
+            draggable: true,
+            center: true,
+            speed: 0.1,
+            paddingRight: 10,
+            onChange: (_element: HTMLElement, index: number) => {
+              setLoopIndex(index)
+            },
+          })
+        }
+      })
     },
     {
       dependencies: [],
@@ -220,6 +244,19 @@ const SectionThree: React.FC = () => {
           )
         })}
       </div>
+      {mobileFlag ? (
+        <div className={styles.dotContainer}>
+          {GAME_DATA.map((_data, index) => {
+            return (
+              <div
+                className={classNames(styles.dot, {
+                  [styles.dotSelected]: index === loopIndex,
+                })}
+              ></div>
+            )
+          })}
+        </div>
+      ) : null}
     </section>
   )
 }

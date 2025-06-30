@@ -29,7 +29,7 @@
         }
 
         .content {
-            @apply text-sm w-full leading-4.5 px-7.5;
+            @apply text-sm w-78.5 leading-4.5;
             @apply xl:text-base xl:w-156 xl:pt-12 xl:leading-7.5 xl:px-0;
         }
 
