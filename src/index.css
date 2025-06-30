@@ -39,7 +39,8 @@ body {
 }
 
 main {
-    @apply w-screen h-screen text-[#E6CCAF];
+    @apply w-screen text-[#E6CCAF];
+    @apply xl:h-screen
 }
 
 section {

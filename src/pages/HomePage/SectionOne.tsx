@@ -4,8 +4,12 @@ import styles from './SectionOne.module.css'
 import { useGSAP } from '@gsap/react'
 import { SplitText } from 'gsap/SplitText'
 import { gsap } from 'gsap'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
-const SectionOne: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
+const SectionOne: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const scrollHintRef = useRef<HTMLDivElement>(null)
@@ -13,36 +17,41 @@ const SectionOne: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
 
   useGSAP(
     () => {
-      if (isMobile) return
-      SplitText.create(descriptionRef.current, {
-        type: 'lines',
-        autoSplit: true,
-        mask: 'lines',
-        smartWrap: true,
-        linesClass: 'line',
-        reduceWhiteSpace: false,
-        onSplit: (self) => {
-          const tl = gsap.timeline({})
-          tl.from(self.lines, {
-            autoAlpha: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'power1.out',
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          SplitText.create(descriptionRef.current, {
+            type: 'lines',
+            autoSplit: true,
+            mask: 'lines',
+            smartWrap: true,
+            linesClass: 'line',
+            reduceWhiteSpace: false,
+            onSplit: (self) => {
+              const tl = gsap.timeline({})
+              tl.from(self.lines, {
+                autoAlpha: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power1.out',
+              })
+                .from(scrollHintRef.current, {
+                  autoAlpha: 0,
+                  duration: 0.8,
+                })
+                .to(scrollHintRef.current, {
+                  autoAlpha: 0,
+                  duration: 0.8,
+                  repeat: -1,
+                  yoyo: true,
+                  ease: 'power1.inOut',
+                })
+              return tl
+            },
           })
-            .from(scrollHintRef.current, {
-              autoAlpha: 0,
-              duration: 0.8,
-            })
-            .to(scrollHintRef.current, {
-              autoAlpha: 0,
-              duration: 0.8,
-              repeat: -1,
-              yoyo: true,
-              ease: 'power1.inOut',
-            })
-          return tl
-        },
+        }
       })
       const handleWheel = () => {
         if (!hasScrolledRef.current && scrollHintRef.current) {
@@ -63,7 +72,7 @@ const SectionOne: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
       }
     },
     {
-      dependencies: [isMobile],
+      dependencies: [],
       scope: sectionRef,
     },
   )
@@ -75,7 +84,7 @@ const SectionOne: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
         Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
         Throne.
       </div>
-      {isMobile ? null : (
+      {mobileFlag ? null : (
         <div className={styles.scrollHint} ref={scrollHintRef}>
           <div className={styles.mouseContainer}></div>
           Scroll to Explore

@@ -6,19 +6,35 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother'
 import { SplitText } from 'gsap/SplitText'
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 import { useGSAP } from '@gsap/react'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin)
 
 const PageContainer: React.FC<PropsWithChildren> = ({ children }) => {
   const mainRef = useRef<HTMLDivElement>(null)
-  const scrollSoother = useRef<ScrollSmoother>(null)
+  const scrollSmoother = useRef<ScrollSmoother>(null)
 
   useGSAP(
     () => {
-      scrollSoother.current = ScrollSmoother.create({
-        smooth: 2,
-        effects: true,
-        normalizeScroll: true,
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          scrollSmoother.current = ScrollSmoother.create({
+            smooth: 2,
+            effects: true,
+            normalizeScroll: true,
+          })
+        }
+        return () => {
+          if (scrollSmoother.current) {
+            scrollSmoother.current.kill()
+            scrollSmoother.current = null
+          }
+        }
       })
     },
     {

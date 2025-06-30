@@ -20,38 +20,39 @@ const HomePage: React.FC = () => {
   const heroesCoverRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const heroItemRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [isMobile, setIsMobile] = useState(false)
+  const [mobileFlag, setMobileFlag] = useState(false)
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
       mm.add(GsapMediaQueryCondition, (context) => {
-        const { isMobile } = context.conditions as unknown as GsapMediaQueryConditionType
-        if (isMobile) {
-          return setIsMobile(true)
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          setMobileFlag(false)
+          gsap.from(heroItemRefs.current, {
+            autoAlpha: 0,
+            yPercent: 40,
+            duration: 1.6,
+            stagger: {
+              each: 0.2,
+              from: 'center',
+            },
+            ease: 'power2.out',
+            delay: 0.4,
+          })
+          gsap.fromTo(
+            headerRef.current,
+            { autoAlpha: 0, y: -100 },
+            { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
+          )
+          gsap.fromTo(
+            heroesCoverRef.current,
+            { autoAlpha: 0, yPercent: 50 },
+            { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
+          )
+        } else {
+          setMobileFlag(true)
         }
-        setIsMobile(false)
-        gsap.from(heroItemRefs.current, {
-          autoAlpha: 0,
-          yPercent: 40,
-          duration: 1.6,
-          stagger: {
-            each: 0.2,
-            from: 'center',
-          },
-          ease: 'power2.out',
-          delay: 0.4,
-        })
-        gsap.fromTo(
-          headerRef.current,
-          { autoAlpha: 0, y: -100 },
-          { autoAlpha: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
-        )
-        gsap.fromTo(
-          heroesCoverRef.current,
-          { autoAlpha: 0, yPercent: 50 },
-          { autoAlpha: 1, yPercent: 0, duration: 1, ease: 'power2.out', delay: 0.4 },
-        )
       })
     },
     {
@@ -67,7 +68,7 @@ const HomePage: React.FC = () => {
   return (
     <div className={styles.pageContainer} ref={pageRef}>
       <div className={styles.heroesPartContainer}>
-        {isMobile ? (
+        {mobileFlag ? (
           <div className={styles.heroesContainerMobile}></div>
         ) : (
           <div className={styles.heroesContainer}>
@@ -90,8 +91,8 @@ const HomePage: React.FC = () => {
           Play Game
         </button>
       </div>
-      <SectionOne isMobile={isMobile}></SectionOne>
-      <SectionTwo></SectionTwo>
+      <SectionOne mobileFlag={mobileFlag}></SectionOne>
+      <SectionTwo mobileFlag={mobileFlag}></SectionTwo>
       <SectionThree></SectionThree>
       <SectionFour></SectionFour>
       <SectionFive></SectionFive>

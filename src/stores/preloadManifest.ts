@@ -4,7 +4,9 @@ const homePageImages = import.meta.glob('../assets/images/home_page/**/*.png', {
 })
 
 export default [
-  ...Object.keys(homePageImages).map((key) => ({
-    src: homePageImages[key],
-  })),
+  ...Object.keys(homePageImages)
+    .filter((key) => !key.includes('_mobile.png'))
+    .map((key) => ({
+      src: homePageImages[key],
+    })),
 ]
