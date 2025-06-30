@@ -17,7 +17,7 @@
 
     .gamePartContainer {
         @apply flex flex-row items-start w-83.5 gap-x-2.5 mb-3 overflow-hidden;
-        @apply xl:gap-x-11 xl:w-auto xl:overflow-auto xl:mb-0;
+        @apply xl:gap-x-11 xl:w-auto xl:overflow-visible xl:mb-0;
     }
 
     .dotContainer {
