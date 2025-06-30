@@ -5,8 +5,12 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import classNames from 'classnames'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
-const SectionTwo: React.FC = () => {
+const SectionTwo: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
@@ -15,86 +19,92 @@ const SectionTwo: React.FC = () => {
 
   useGSAP(
     () => {
-      // Pin the section
-      gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionTwo-pin',
-          trigger: sectionRef.current,
-          start: 'center center',
-          end: 'bottom 20%',
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.4,
-        },
-      })
-      const animationInTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionTwo-animation-in',
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          scrub: 0.4,
-        },
-      })
-      SplitText.create(contentTextRef.current, {
-        type: 'lines',
-        autoSplit: true,
-        mask: 'lines',
-        smartWrap: true,
-        linesClass: 'line',
-        reduceWhiteSpace: false,
-        onSplit: (splitText) => {
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          // Pin the section
+          gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionTwo-pin',
+              trigger: sectionRef.current,
+              start: 'center center',
+              end: 'bottom 20%',
+              pin: true,
+              pinSpacing: true,
+              scrub: 0.4,
+            },
+          })
+          const animationInTimeline = gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionTwo-animation-in',
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              end: 'bottom 20%',
+              scrub: 0.4,
+            },
+          })
+          SplitText.create(contentTextRef.current, {
+            type: 'lines',
+            autoSplit: true,
+            mask: 'lines',
+            smartWrap: true,
+            linesClass: 'line',
+            reduceWhiteSpace: false,
+            onSplit: (splitText) => {
+              animationInTimeline
+                .from(
+                  splitText.lines,
+                  {
+                    id: 'contentText',
+                    y: 100,
+                    autoAlpha: 0,
+                    duration: 0.8,
+                    stagger: {
+                      each: 0.2,
+                    },
+                  },
+                  '1.6',
+                )
+                .to(titleRef.current, {
+                  duration: 0.8,
+                })
+            },
+          })
           animationInTimeline
             .from(
-              splitText.lines,
+              titleRef.current,
               {
-                id: 'contentText',
+                id: 'title',
                 y: 100,
                 autoAlpha: 0,
                 duration: 0.8,
-                stagger: {
-                  each: 0.2,
-                },
+              },
+              '0',
+            )
+            .from(
+              descriptionRef.current,
+              {
+                id: 'description',
+                y: 100,
+                autoAlpha: 0,
+                duration: 0.8,
+              },
+              '0.8',
+            )
+            .from(
+              cardTemplateRefs.current,
+              {
+                id: 'cardsTemplate',
+                rotate: -20,
+                autoAlpha: 0,
+                duration: 0.8,
+                stagger: 0.6,
               },
               '1.6',
             )
-            .to(titleRef.current, {
-              duration: 0.8,
-            })
-        },
+        }
       })
-      animationInTimeline
-        .from(
-          titleRef.current,
-          {
-            id: 'title',
-            y: 100,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0',
-        )
-        .from(
-          descriptionRef.current,
-          {
-            id: 'description',
-            y: 100,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0.8',
-        )
-        .from(
-          cardTemplateRefs.current,
-          {
-            id: 'cardsTemplate',
-            rotate: -20,
-            autoAlpha: 0,
-            duration: 0.8,
-            stagger: 0.6,
-          },
-          '1.6',
-        )
     },
     {
       dependencies: [],
@@ -111,21 +121,25 @@ const SectionTwo: React.FC = () => {
         Real influencers become your in-game Heroes – the champions of our realm.
       </div>
       <div className={styles.contentContainer}>
-        <div className={styles.cardsTemplate}>
-          {new Array(4).fill(null).map((_item, index) => {
-            return (
-              <div
-                key={index}
-                ref={(el) => {
-                  if (el) {
-                    cardTemplateRefs.current[index] = el
-                  }
-                }}
-                className={classNames(styles.cardTemplate, styles[`cardTemplate${index + 1}`])}
-              ></div>
-            )
-          })}
-        </div>
+        {mobileFlag ? (
+          <div className={styles.cardTemplateMobile}></div>
+        ) : (
+          <div className={styles.cardsTemplate}>
+            {new Array(4).fill(null).map((_item, index) => {
+              return (
+                <div
+                  key={index}
+                  ref={(el) => {
+                    if (el) {
+                      cardTemplateRefs.current[index] = el
+                    }
+                  }}
+                  className={classNames(styles.cardTemplate, styles[`cardTemplate${index + 1}`])}
+                ></div>
+              )
+            })}
+          </div>
+        )}
         <div className={styles.content} ref={contentTextRef}>
           In Address Fantasy, every card is a real blockchain address — a wallet with a track
           record, a story, a soul.

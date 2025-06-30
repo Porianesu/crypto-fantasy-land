@@ -2,25 +2,35 @@
 
 .sectionContainer {
     /*@apply pb-26;*/
-    @apply py-13;
+    @apply pt-0 pb-13;
+    @apply xl:py-13;
 
     .title {
-        @apply text-4xl text-[#D6B065] mb-11;
+        @apply text-lg text-[#D6B065] mb-3.5;
+        @apply xl:text-4xl xl:mb-11;
     }
 
     .description {
-        @apply text-lg leading-7.5 mb-2;
+        @apply text-sm leading-normal mb-10 text-center max-w-70;
+        @apply xl:text-lg xl:leading-7.5 xl:mb-2 xl:max-w-max;
     }
 
     .contentContainer {
-        @apply flex flex-row items-start;
+        @apply flex flex-col items-center;
+        @apply xl:flex-row xl:items-start;
+
+        .cardTemplateMobile {
+            @apply w-66 h-54.5 mb-5;
+            @apply bg-[url(/src/assets/images/home_page/section_two/cards_template_mobile.png)] bg-contain bg-center bg-no-repeat;
+        }
 
         .cardsTemplate {
             @apply w-119.5 h-118 mr-14 flex flex-row items-start relative;
         }
 
         .content {
-            @apply text-base w-156 leading-7.5 pt-12;
+            @apply text-sm w-full leading-4.5 px-7.5;
+            @apply xl:text-base xl:w-156 xl:pt-12 xl:leading-7.5 xl:px-0;
         }
 
         .divideLine {
