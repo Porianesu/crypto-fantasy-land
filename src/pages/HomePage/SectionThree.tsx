@@ -69,18 +69,18 @@ const GAME_DATA: Array<IGameData> = [
 
 const GameBlock = React.forwardRef<
   HTMLDivElement,
-  { game: IGameData; isAnimationRef: RefObject<boolean> }
->(({ game, isAnimationRef }, ref) => {
+  { game: IGameData; isAnimationRef: RefObject<boolean>; mobileFlag: boolean }
+>(({ game, isAnimationRef, mobileFlag }, ref) => {
   const imageRef = useRef<HTMLImageElement>(null)
   const dynamicsImageRef = useRef<HTMLImageElement>(null)
   const handleMouseEnter: MouseEventHandler = (event) => {
-    if (isAnimationRef.current) return
+    if (isAnimationRef.current || mobileFlag) return
     gsap.to(event.currentTarget, {
       scale: 1.04,
     })
   }
   const handleMouseLeave: MouseEventHandler = (event) => {
-    if (isAnimationRef.current) return
+    if (isAnimationRef.current || mobileFlag) return
     gsap.to(event.currentTarget, {
       scale: 1,
     })
@@ -240,6 +240,7 @@ const SectionThree: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
                 gameBlockRefs.current[index] = el
               }}
               isAnimationRef={isAnimationRef}
+              mobileFlag={mobileFlag}
             ></GameBlock>
           )
         })}
@@ -249,6 +250,7 @@ const SectionThree: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
           {GAME_DATA.map((_data, index) => {
             return (
               <div
+                key={index}
                 className={classNames(styles.dot, {
                   [styles.dotSelected]: index === loopIndex,
                 })}
