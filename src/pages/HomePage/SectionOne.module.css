@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 .sectionContainer {
-    @apply pt-6.5 pb-58.5;
+    @apply pt-5 pb-14;
+    @apply xl:pt-6.5 xl:pb-58.5;
 
     .title {
-        @apply text-6xl leading-20 text-[#FF9154] font-[Duvall] max-w-187.5 text-center mb-95;
+        @apply text-2xl leading-8 text-[#FF9154] font-[Duvall] max-w-71.5 text-center mb-44.5;
+        @apply xl:text-6xl xl:leading-20 xl:max-w-187.5 xl:mb-95;
         background: linear-gradient(to right, #FF9154, #FFFABD);
         color: transparent;
         background-clip: text;
@@ -13,7 +15,8 @@
     }
 
     .description {
-        @apply text-2xl  text-[#D6B065] max-w-182 text-center mb-37;
+        @apply text-sm text-[#D6B065] max-w-72 text-center;
+        @apply xl:text-2xl xl:max-w-182 xl:mb-37;
         text-shadow: -2px -2px 0 #421512,
         2px -2px 0 #421512,
         -2px 2px 0 #421512,

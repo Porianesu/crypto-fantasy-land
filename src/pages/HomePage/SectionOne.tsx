@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { SplitText } from 'gsap/SplitText'
 import { gsap } from 'gsap'
 
-const SectionOne: React.FC = () => {
+const SectionOne: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const scrollHintRef = useRef<HTMLDivElement>(null)
@@ -13,6 +13,7 @@ const SectionOne: React.FC = () => {
 
   useGSAP(
     () => {
+      if (isMobile) return
       SplitText.create(descriptionRef.current, {
         type: 'lines',
         autoSplit: true,
@@ -44,8 +45,7 @@ const SectionOne: React.FC = () => {
         },
       })
       const handleWheel = () => {
-        console.log('handleWheel')
-        if (!hasScrolledRef.current) {
+        if (!hasScrolledRef.current && scrollHintRef.current) {
           hasScrolledRef.current = true
           gsap.killTweensOf(scrollHintRef.current)
           gsap.to(scrollHintRef.current, {
@@ -63,7 +63,7 @@ const SectionOne: React.FC = () => {
       }
     },
     {
-      dependencies: [],
+      dependencies: [isMobile],
       scope: sectionRef,
     },
   )
@@ -75,10 +75,12 @@ const SectionOne: React.FC = () => {
         Summon mighty heroes, forge your deck, and claim your destiny in the battle for the Crypto
         Throne.
       </div>
-      <div className={styles.scrollHint} ref={scrollHintRef}>
-        <div className={styles.mouseContainer}></div>
-        Scroll to Explore
-      </div>
+      {isMobile ? null : (
+        <div className={styles.scrollHint} ref={scrollHintRef}>
+          <div className={styles.mouseContainer}></div>
+          Scroll to Explore
+        </div>
+      )}
     </section>
   )
 }

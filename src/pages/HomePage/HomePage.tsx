@@ -90,7 +90,7 @@ const HomePage: React.FC = () => {
           Play Game
         </button>
       </div>
-      <SectionOne></SectionOne>
+      <SectionOne isMobile={isMobile}></SectionOne>
       <SectionTwo></SectionTwo>
       <SectionThree></SectionThree>
       <SectionFour></SectionFour>
