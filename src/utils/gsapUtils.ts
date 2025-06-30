@@ -1,3 +1,8 @@
+import { gsap } from 'gsap'
+import { Draggable } from 'gsap/Draggable'
+import { InertiaPlugin } from 'gsap/InertiaPlugin'
+gsap.registerPlugin(Draggable, InertiaPlugin)
+
 /*
 This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
 
@@ -12,9 +17,9 @@ Features:
    - current() - returns the current index (if an animation is in-progress, it reflects the final index)
    - times - an Array of the times on the timeline where each element hits the "starting" spot.
  */
-export function horizontalLoop(items, config) {
-  let timeline
-  items = gsap.utils.toArray(items)
+export function horizontalLoop(targetItems: gsap.TweenTarget, config) {
+  let timeline: gsap.core.Timeline | null = null
+  const items = gsap.utils.toArray(targetItems)
   config = config || {}
   gsap.context(() => {
     // use a context so that if this is called from within another context or a gsap.matchMedia(), we can perform proper cleanup like the "resize" event handler on the window
