@@ -1,43 +1,27 @@
 import { observer } from 'mobx-react-lite'
-import React, { Fragment, useImperativeHandle, useRef } from 'react'
+import React, { Fragment, useImperativeHandle, useMemo, useRef } from 'react'
 import styles from './SectionFour.module.css'
 import Line1 from '@/assets/images/home_page/section_four/card_template_line_1.svg?react'
 import Line2 from '@/assets/images/home_page/section_four/card_template_line_2.svg?react'
 import Line3 from '@/assets/images/home_page/section_four/card_template_line_3.svg?react'
 import Line4 from '@/assets/images/home_page/section_four/card_template_line_4.svg?react'
+import Line1Mobile from '@/assets/images/home_page/section_four/card_template_line_1_mobile.svg?react'
+import Line2Mobile from '@/assets/images/home_page/section_four/card_template_line_2_mobile.svg?react'
+import Line3Mobile from '@/assets/images/home_page/section_four/card_template_line_3_mobile.svg?react'
+import Line4Mobile from '@/assets/images/home_page/section_four/card_template_line_4_mobile.svg?react'
 import classNames from 'classnames'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
 interface ICardTemplateData {
   title: string
   description: string
   line: React.ReactNode
 }
-const CARD_TEMPLATE_DATA: Array<ICardTemplateData> = [
-  {
-    title: 'Card Base Score',
-    description:
-      'Calculated based on the Chainspirit ’s quantified performance in the trading market.',
-    line: <Line1 className={styles.line} />,
-  },
-  {
-    title: 'Chainspirit Name',
-    description: 'Generated through AI analysis of social tags from platforms like Twitter.',
-    line: <Line2 className={styles.line} />,
-  },
-  {
-    title: 'Chainspirit Portrait',
-    description: 'Each Chainspirit has a unique and meaningful presence in the Interchain Realm.',
-    line: <Line3 className={styles.line} />,
-  },
-  {
-    title: 'Card Rarity Frame',
-    description:
-      'Four rarity levels, each with a distinct card frame. Lower-rarity cards can be fused into higher-rarity ones.',
-    line: <Line4 className={styles.line} />,
-  },
-]
 
 interface ICardInfoHandle {
   timelineAnimation: React.RefObject<gsap.core.Timeline | null>
@@ -56,51 +40,57 @@ const CardInfo = React.forwardRef<
 
   useGSAP(
     () => {
-      const lineId = `#section_four_line_${index + 1}`
-      gsap.set(startDotRef.current, {
-        scale: 0,
-        autoAlpha: 0,
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          const lineId = `#section_four_line_${index + 1}`
+          gsap.set(startDotRef.current, {
+            scale: 0,
+            autoAlpha: 0,
+          })
+          gsap.set(endDotRef.current, {
+            scale: 0,
+            autoAlpha: 0,
+          })
+          gsap.set(cardInfoRef.current, {
+            y: 40,
+            scale: 0.85,
+            rotateY: 120,
+            autoAlpha: 0,
+          })
+          gsap.set(lineId, {
+            drawSVG: 0,
+          })
+          timelineAnimation.current = gsap.timeline({})
+          timelineAnimation.current
+            .to(startDotRef.current, {
+              scale: 1,
+              autoAlpha: 1,
+              duration: 0.4,
+            })
+            .to(lineId, {
+              id: `line${index + 1}`,
+              drawSVG: true,
+              duration: 1,
+              ease: 'power1.inOut',
+            })
+            .to(endDotRef.current, {
+              scale: 1,
+              autoAlpha: 1,
+              duration: 0.4,
+            })
+            .to(cardInfoRef.current, {
+              y: 0,
+              scale: 1,
+              rotateY: 0,
+              autoAlpha: 1,
+              duration: 1.2,
+              ease: 'back.out(1.7)',
+            })
+            .revert()
+        }
       })
-      gsap.set(endDotRef.current, {
-        scale: 0,
-        autoAlpha: 0,
-      })
-      gsap.set(cardInfoRef.current, {
-        y: 40,
-        scale: 0.85,
-        rotateY: 120,
-        autoAlpha: 0,
-      })
-      gsap.set(lineId, {
-        drawSVG: 0,
-      })
-      timelineAnimation.current = gsap.timeline({})
-      timelineAnimation.current
-        .to(startDotRef.current, {
-          scale: 1,
-          autoAlpha: 1,
-          duration: 0.4,
-        })
-        .to(lineId, {
-          id: `line${index + 1}`,
-          drawSVG: true,
-          duration: 1,
-          ease: 'power1.inOut',
-        })
-        .to(endDotRef.current, {
-          scale: 1,
-          autoAlpha: 1,
-          duration: 0.4,
-        })
-        .to(cardInfoRef.current, {
-          y: 0,
-          scale: 1,
-          rotateY: 0,
-          autoAlpha: 1,
-          duration: 1.2,
-          ease: 'back.out(1.7)',
-        })
-        .revert()
     },
     {
       dependencies: [],
@@ -144,7 +134,7 @@ const CardInfo = React.forwardRef<
   )
 })
 
-const SectionFour: React.FC = () => {
+const SectionFour: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
@@ -153,90 +143,144 @@ const SectionFour: React.FC = () => {
   const cardTemplateBackgroundRef = useRef<HTMLDivElement>(null)
   const cardsInfoRefs = useRef<Array<ICardInfoHandle | null>>([])
 
+  const CARD_TEMPLATE_DATA = useMemo<Array<ICardTemplateData>>(
+    () => [
+      {
+        title: 'Card Base Score',
+        description:
+          'Calculated based on the Chainspirit ’s quantified performance in the trading market.',
+        line: mobileFlag ? (
+          <Line1Mobile className={styles.line}></Line1Mobile>
+        ) : (
+          <Line1 className={styles.line} />
+        ),
+      },
+      {
+        title: 'Chainspirit Name',
+        description: 'Generated through AI analysis of social tags from platforms like Twitter.',
+        line: mobileFlag ? (
+          <Line2Mobile className={styles.line}></Line2Mobile>
+        ) : (
+          <Line2 className={styles.line} />
+        ),
+      },
+      {
+        title: 'Chainspirit Portrait',
+        description:
+          'Each Chainspirit has a unique and meaningful presence in the Interchain Realm.',
+        line: mobileFlag ? (
+          <Line3Mobile className={styles.line}></Line3Mobile>
+        ) : (
+          <Line3 className={styles.line} />
+        ),
+      },
+      {
+        title: 'Card Rarity Frame',
+        description:
+          'Four rarity levels, each with a distinct card frame. Lower-rarity cards can be fused into higher-rarity ones.',
+        line: mobileFlag ? (
+          <Line4Mobile className={styles.line}></Line4Mobile>
+        ) : (
+          <Line4 className={styles.line} />
+        ),
+      },
+    ],
+    [mobileFlag],
+  )
+
   useGSAP(
     () => {
-      if (!cardsInfoRefs.current.length) return
-      // Pin the section
-      gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionFour-pin',
-          trigger: sectionRef.current,
-          start: 'center center',
-          end: 'bottom+=1000px',
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.4,
-        },
-      })
-      const animationInTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionFour-animation-in',
-          trigger: sectionRef.current,
-          start: 'center 80%',
-          end: 'bottom+=1000px',
-          scrub: 0.4,
-        },
-      })
-      animationInTimeline
-        .from(backgroundRef.current, {
-          id: 'background',
-          rotate: -360,
-          scale: 0,
-          autoAlpha: 0,
-          duration: 1.2,
-          onComplete: () => {
-            if (!backgroundRotateRef.current) {
-              backgroundRotateRef.current = gsap.to(backgroundRef.current, {
-                rotate: 360,
-                duration: 10,
-                ease: 'linear',
-                repeat: -1,
-              })
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          if (!cardsInfoRefs.current.length) return
+          // Pin the section
+          gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionFour-pin',
+              trigger: sectionRef.current,
+              start: 'center center',
+              end: 'bottom+=1000px',
+              pin: true,
+              pinSpacing: true,
+              scrub: 0.4,
+            },
+          })
+          const animationInTimeline = gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionFour-animation-in',
+              trigger: sectionRef.current,
+              start: 'center 80%',
+              end: 'bottom+=1000px',
+              scrub: 0.4,
+            },
+          })
+          animationInTimeline
+            .from(backgroundRef.current, {
+              id: 'background',
+              rotate: -360,
+              scale: 0,
+              autoAlpha: 0,
+              duration: 1.2,
+              onComplete: () => {
+                if (!backgroundRotateRef.current) {
+                  backgroundRotateRef.current = gsap.to(backgroundRef.current, {
+                    rotate: 360,
+                    duration: 10,
+                    ease: 'linear',
+                    repeat: -1,
+                  })
+                }
+              },
+              onUpdate: () => {
+                if (backgroundRotateRef.current) {
+                  backgroundRotateRef.current.revert()
+                  backgroundRotateRef.current = null
+                }
+              },
+            })
+            .from(cardTemplateBackgroundRef.current, {
+              id: 'cardTemplateBackground',
+              scale: 0,
+              autoAlpha: 0,
+              duration: 1.6,
+              ease: 'back.out(1.7)',
+            })
+          cardsInfoRefs.current.forEach((cardsInfoRef, index) => {
+            if (cardsInfoRef?.timelineAnimation.current) {
+              animationInTimeline.add(
+                cardsInfoRef.timelineAnimation.current,
+                `${1.6 + index * 0.8}`,
+              )
             }
-          },
-          onUpdate: () => {
-            if (backgroundRotateRef.current) {
-              backgroundRotateRef.current.revert()
-              backgroundRotateRef.current = null
-            }
-          },
-        })
-        .from(cardTemplateBackgroundRef.current, {
-          id: 'cardTemplateBackground',
-          scale: 0,
-          autoAlpha: 0,
-          duration: 1.6,
-          ease: 'back.out(1.7)',
-        })
-      cardsInfoRefs.current.forEach((cardsInfoRef, index) => {
-        if (cardsInfoRef?.timelineAnimation.current) {
-          animationInTimeline.add(cardsInfoRef.timelineAnimation.current, `${1.6 + index * 0.8}`)
+          })
+          animationInTimeline
+            .from(
+              titleRef.current,
+              {
+                id: 'title',
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.8,
+              },
+              '0',
+            )
+            .from(
+              descriptionRef.current,
+              {
+                id: 'description',
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.8,
+              },
+              '0',
+            )
+            .to(titleRef.current, {
+              duration: 0.8,
+            })
         }
       })
-      animationInTimeline
-        .from(
-          titleRef.current,
-          {
-            id: 'title',
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0',
-        )
-        .from(
-          descriptionRef.current,
-          {
-            id: 'description',
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0',
-        )
-        .to(titleRef.current, {
-          duration: 0.8,
-        })
     },
     {
       dependencies: [cardsInfoRefs.current.length],

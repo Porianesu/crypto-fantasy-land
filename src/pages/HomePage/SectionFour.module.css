@@ -2,18 +2,22 @@
 
 .sectionContainer {
     /*@apply pb-41;*/
-    @apply py-20.5;
+    @apply pt-0 pb-16;
+    @apply xl:py-20.5;
 
     .title {
-        @apply text-4xl text-[#D6B065] mb-11;
+        @apply text-lg text-[#D6B065] mb-5;
+        @apply xl:text-4xl xl:mb-11;
     }
 
     .description {
-        @apply text-lg leading-7.5 mb-14;
+        @apply text-sm leading-normal mb-44 text-center max-w-66.5;
+        @apply xl:text-lg xl:leading-7.5 xl:mb-14 xl:text-left xl:max-w-none;
     }
 
     .contentContainer {
-        @apply size-130 flex flex-col items-center justify-start pt-15 relative;
+        @apply size-63 flex flex-col items-center justify-start pt-6 relative;
+        @apply xl:size-130 xl:pt-15;
 
         .contentBackground {
             @apply absolute size-full inset-0 z-0;
@@ -21,7 +25,8 @@
         }
 
         .cardTemplate {
-            @apply w-72.5 h-105 relative;
+            @apply w-35 h-51 relative;
+            @apply xl:w-72.5 xl:h-105;
         }
     }
 }
@@ -32,36 +37,45 @@
 }
 
 .cardInfoContainer {
-    @apply absolute z-10 w-85 h-51 flex flex-col items-stretch justify-start py-4.5 px-5 text-white;
-    @apply bg-[url(/src/assets/images/home_page/section_four/card_info_background.png)] bg-contain bg-center bg-no-repeat;
+    @apply absolute z-10 w-41 h-34 flex flex-col items-stretch justify-start py-2.5 px-2 text-white;
+    @apply xl:w-85 xl:h-51 xl:py-4.5 xl:px-5;
+    @apply bg-[url(/src/assets/images/home_page/section_four/card_info_background_mobile.png)] bg-contain bg-center bg-no-repeat;
+    @apply xl:bg-[url(/src/assets/images/home_page/section_four/card_info_background.png)];
 
     .cardInfoNumber {
-        @apply opacity-10 absolute right-4 top-1 italic text-8xl font-extrabold -z-10;
+        @apply opacity-10 absolute right-2 top-1 italic text-6xl font-extrabold -z-10;
+        @apply xl:text-8xl xl:right-4;
     }
 
     .cardInfoTitle {
-        @apply text-2xl mb-2;
+        @apply text-sm mb-1.5 font-semibold;
+        @apply xl:text-2xl xl:mb-2;
     }
 
     .cardInfoDescription {
-        @apply text-base;
+        @apply text-xs;
+        @apply xl:text-base;
     }
 }
 
 .cardInfoContainer1 {
-    @apply top-6 -left-102;
+    @apply -top-41.5 -left-26;
+    @apply xl:top-6 xl:-left-102;
 }
 
 .cardInfoContainer2 {
-    @apply top-68 -left-102;
+    @apply -bottom-47 -left-26;
+    @apply xl:top-68 xl:-left-102;
 }
 
 .cardInfoContainer3 {
-    @apply top-6 -right-102;
+    @apply -top-41.5 -right-26;
+    @apply xl:top-6 xl:-right-102;
 }
 
 .cardInfoContainer4 {
-    @apply top-68 -right-95;
+    @apply -bottom-47 -right-26;
+    @apply xl:top-68 xl:-right-95;
 }
 
 
