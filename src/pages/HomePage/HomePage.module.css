@@ -2,8 +2,7 @@
 
 .pageContainer {
     @apply w-full flex flex-col items-stretch bg-[#160D16];
-    @apply bg-[url(/src/assets/images/home_page/background_top.png)] bg-top-left bg-no-repeat;
-    background-size: 100% auto; /* 根据你的需求调整尺寸 */
+    @apply bg-[url(/src/assets/images/home_page/background_top.png)] bg-size-[100%_auto] bg-top-left bg-no-repeat;
 
     .header {
         @apply flex flex-row items-center justify-between px-9;
@@ -48,8 +47,8 @@
         .heroesCover {
             @apply w-full h-110.5 z-10 -mt-24;
             @apply xl:-mt-87 xl:h-509.25;
-            @apply bg-[url(/src/assets/images/home_page/heros_cover.png)] bg-top-left bg-no-repeat;
-            background-size: 100% auto;
+            @apply bg-[url(/src/assets/images/home_page/heros_cover.png)] bg-size-[100%_100%] bg-top-left bg-no-repeat;
+            @apply xl:bg-size-[100%_auto];
         }
     }
 
