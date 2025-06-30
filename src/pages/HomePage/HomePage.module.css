@@ -6,16 +6,20 @@
     background-size: 100% auto; /* 根据你的需求调整尺寸 */
 
     .header {
-        @apply flex flex-row items-center justify-between pt-6.5 px-66;
+        @apply flex flex-row items-center justify-between px-9;
+        padding-top: calc(env(safe-area-inset-top, 0rem) + 1rem);
+        @apply xl:px-66 xl:pt-6.5;
 
         .gameIcon {
-            @apply w-28.5 h-14.5 cursor-pointer;
+            @apply w-15.5 h-8 cursor-pointer;
             @apply bg-[url(/src/assets/images/home_page/game_icon.png)] bg-cover bg-center bg-no-repeat;
+            @apply xl:w-28.5 xl:h-14.5;
         }
 
         .playButton {
-            @apply w-50 h-14 text-white text-xl cursor-pointer;
+            @apply w-26 h-7.5 text-white text-xs cursor-pointer;
             @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
+            @apply xl:w-50 xl:h-14 xl:text-xl;
             font-family: Duvall, serif;
             text-shadow: -2px -2px 0 #4C3110,
             2px -2px 0 #4C3110,
@@ -29,14 +33,21 @@
     }
 
     .heroesPartContainer {
-        @apply flex flex-col items-center justify-start absolute top-65 w-full z-0;
+        @apply flex flex-col items-center justify-start absolute top-32 w-full z-0;
+        @apply xl:top-65;
 
         .heroesContainer {
             @apply flex flex-row items-start z-0;
         }
 
+        .heroesContainerMobile {
+            @apply w-90 h-47.5;
+            @apply bg-[url(/src/assets/images/home_page/heroes_background_mobile.png)] bg-contain bg-top-left bg-no-repeat;
+        }
+
         .heroesCover {
-            @apply w-full h-509.25 z-10 -mt-87;
+            @apply w-full h-110.5 z-10 -mt-24;
+            @apply xl:-mt-87 xl:h-509.25;
             @apply bg-[url(/src/assets/images/home_page/heros_cover.png)] bg-top-left bg-no-repeat;
             background-size: 100% auto;
         }

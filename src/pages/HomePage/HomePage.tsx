@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './HomePage.module.css'
 import classNames from 'classnames'
 import SectionTwo from '@/pages/HomePage/SectionTwo.tsx'
@@ -20,13 +20,17 @@ const HomePage: React.FC = () => {
   const heroesCoverRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const heroItemRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [isMobile, setIsMobile] = useState(false)
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
       mm.add(GsapMediaQueryCondition, (context) => {
-        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
-        if (!isDesktop) return
+        const { isMobile } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isMobile) {
+          return setIsMobile(true)
+        }
+        setIsMobile(false)
         gsap.from(heroItemRefs.current, {
           autoAlpha: 0,
           yPercent: 40,
@@ -63,17 +67,21 @@ const HomePage: React.FC = () => {
   return (
     <div className={styles.pageContainer} ref={pageRef}>
       <div className={styles.heroesPartContainer}>
-        <div className={styles.heroesContainer}>
-          {new Array(5).fill(0).map((_, index) => (
-            <div
-              key={index}
-              className={styles[`hero${index + 1}`]}
-              ref={(el) => {
-                heroItemRefs.current[index] = el
-              }}
-            ></div>
-          ))}
-        </div>
+        {isMobile ? (
+          <div className={styles.heroesContainerMobile}></div>
+        ) : (
+          <div className={styles.heroesContainer}>
+            {new Array(5).fill(0).map((_, index) => (
+              <div
+                key={index}
+                className={styles[`hero${index + 1}`]}
+                ref={(el) => {
+                  heroItemRefs.current[index] = el
+                }}
+              ></div>
+            ))}
+          </div>
+        )}
         <div className={styles.heroesCover} ref={heroesCoverRef}></div>
       </div>
       <div className={styles.header} ref={headerRef}>
