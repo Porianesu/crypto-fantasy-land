@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
 .sectionContainer {
-    @apply text-white w-screen h-screen flex items-center justify-center relative;
-    @apply bg-[url(/src/assets/images/home_page/background_bottom.png)] bg-top-left bg-no-repeat;
-    background-size: 100% 100%; /* 根据你的需求调整尺寸 */
+    @apply text-white w-screen flex items-center justify-center relative;
+    @apply bg-[url(/src/assets/images/home_page/background_bottom.png)] bg-size-[100%_auto] bg-bottom-left bg-no-repeat;
+    @apply xl:bg-size-[100%_100%] xl:h-screen;
     /*@apply pb-38;*/
 
     .title {
-        @apply text-4xl text-[#D6B065] mb-20.5;
+        @apply text-lg text-[#D6B065] mb-17.5 font-bold;
+        @apply xl:text-4xl xl:mb-20.5;
     }
 
     .content {
-        @apply w-300 h-165 relative;
+        @apply relative flex flex-col items-center gap-y-4;
+        @apply xl:w-300 xl:h-165;
 
         .roadmapContainer {
-            @apply absolute flex items-start flex-row;
+            @apply flex items-start flex-row;
+            @apply xl:absolute;
         }
     }
 }
@@ -36,7 +39,8 @@
 }
 
 .roadmapTime {
-    @apply w-36.5 h-30.5 flex flex-col items-center justify-start pt-8 px-10 text-2xl mr-4 break-all text-center;
+    @apply w-16 h-13.5 flex flex-col items-center justify-start pt-4 px-4 text-xs mr-2 break-all text-center;
+    @apply xl:w-36.5 xl:h-30.5 xl:pt-8 xl:px-10 xl:text-2xl xl:mr-4;
     @apply bg-contain bg-center bg-no-repeat;
     text-shadow: -2px -2px 0 #731A1A,
     2px -2px 0 #731A1A,
@@ -65,15 +69,17 @@
 }
 
 .roadmapInfoContainer {
-    @apply w-81 flex flex-col items-stretch px-8 py-6;
-    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] bg-top-left bg-no-repeat;
-    background-size: 100% 100%;
+    @apply w-60 flex flex-col items-stretch px-3.5 py-3;
+    @apply xl:w-81 xl:px-8 xl:py-6;
+    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] bg-size-[100%_100%] bg-top-left bg-no-repeat;
 
     .roadmapInfoTitle {
-        @apply text-xl mb-3;
+        @apply text-sm mb-2 font-bold;
+        @apply xl:text-xl xl:mb-3;
     }
 
     .roadmapTarget {
-        @apply text-lg leading-7.5;
+        @apply text-xs leading-4.5 font-medium;
+        @apply xl:text-lg xl:leading-7.5;
     }
 }

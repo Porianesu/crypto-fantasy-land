@@ -4,6 +4,10 @@ import styles from './SectionSix.module.css'
 import classNames from 'classnames'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
 interface IRoadmapData {
   time: string
@@ -64,44 +68,50 @@ const RoadmapCard = React.forwardRef<IRoadmapHandle, { data: IRoadmapData; index
 
     useGSAP(
       () => {
-        gsap.set(containerRef.current, {
-          autoAlpha: 0,
-          xPercent: [0, 2].includes(index) ? -60 : 60,
+        const mm = gsap.matchMedia()
+        mm.add(GsapMediaQueryCondition, (context) => {
+          const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+          if (isDesktop) {
+            gsap.set(containerRef.current, {
+              autoAlpha: 0,
+              xPercent: [0, 2].includes(index) ? -60 : 60,
+            })
+            gsap.set(timeRef.current, {
+              autoAlpha: 0,
+              scale: 0,
+            })
+            gsap.set([titleRef.current, ...descriptionRefs.current], {
+              y: 60,
+              autoAlpha: 0,
+            })
+            timelineAnimation.current = gsap.timeline({})
+            timelineAnimation.current
+              .to(containerRef.current, {
+                autoAlpha: 1,
+                xPercent: 0,
+                duration: 0.8,
+                ease: 'back.out(1.7)',
+              })
+              .to(
+                timeRef.current,
+                {
+                  autoAlpha: 1,
+                  scale: 1,
+                  duration: 0.8,
+                  ease: 'back.out(1.7)',
+                },
+                '<+=0.2',
+              )
+              .to([titleRef.current, ...descriptionRefs.current], {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.8,
+                ease: 'back.out(1.7)',
+                stagger: 0.2,
+              })
+              .revert()
+          }
         })
-        gsap.set(timeRef.current, {
-          autoAlpha: 0,
-          scale: 0,
-        })
-        gsap.set([titleRef.current, ...descriptionRefs.current], {
-          y: 60,
-          autoAlpha: 0,
-        })
-        timelineAnimation.current = gsap.timeline({})
-        timelineAnimation.current
-          .to(containerRef.current, {
-            autoAlpha: 1,
-            xPercent: 0,
-            duration: 0.8,
-            ease: 'back.out(1.7)',
-          })
-          .to(
-            timeRef.current,
-            {
-              autoAlpha: 1,
-              scale: 1,
-              duration: 0.8,
-              ease: 'back.out(1.7)',
-            },
-            '<+=0.2',
-          )
-          .to([titleRef.current, ...descriptionRefs.current], {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.8,
-            ease: 'back.out(1.7)',
-            stagger: 0.2,
-          })
-          .revert()
       },
       {
         dependencies: [],
@@ -158,37 +168,43 @@ const SectionSix: React.FC = () => {
 
   useGSAP(
     () => {
-      if (cardRefs.current.length !== 4) return
-      // Pin the section
-      gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionSix-pin',
-          trigger: sectionRef.current,
-          start: 'center center',
-          end: 'bottom+=800px',
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.4,
-        },
-      })
-      const animationInTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionSix-animation-in',
-          trigger: sectionRef.current,
-          start: 'center 80%',
-          end: 'bottom+=800px',
-          scrub: 0.4,
-        },
-      })
-      animationInTimeline.from(titleRef.current, {
-        id: 'title',
-        y: 40,
-        autoAlpha: 0,
-        duration: 0.8,
-      })
-      cardRefs.current.forEach((cardRefs) => {
-        if (cardRefs.timelineAnimation.current) {
-          animationInTimeline.add(cardRefs.timelineAnimation.current, '<+=0.2')
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          if (cardRefs.current.length !== 4) return
+          // Pin the section
+          gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionSix-pin',
+              trigger: sectionRef.current,
+              start: 'center center',
+              end: 'bottom+=800px',
+              pin: true,
+              pinSpacing: true,
+              scrub: 0.4,
+            },
+          })
+          const animationInTimeline = gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionSix-animation-in',
+              trigger: sectionRef.current,
+              start: 'center 80%',
+              end: 'bottom+=800px',
+              scrub: 0.4,
+            },
+          })
+          animationInTimeline.from(titleRef.current, {
+            id: 'title',
+            y: 40,
+            autoAlpha: 0,
+            duration: 0.8,
+          })
+          cardRefs.current.forEach((cardRefs) => {
+            if (cardRefs.timelineAnimation.current) {
+              animationInTimeline.add(cardRefs.timelineAnimation.current, '<+=0.2')
+            }
+          })
         }
       })
     },
