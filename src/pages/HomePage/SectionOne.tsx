@@ -13,6 +13,7 @@ const SectionOne: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
   const scrollHintRef = useRef<HTMLDivElement>(null)
+  const mouseScrollerRef = useRef<HTMLDivElement>(null)
   const hasScrolledRef = useRef(false)
 
   useGSAP(
@@ -41,12 +42,12 @@ const SectionOne: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
                   autoAlpha: 0,
                   duration: 0.8,
                 })
-                .to(scrollHintRef.current, {
+                .to(mouseScrollerRef.current, {
                   autoAlpha: 0,
-                  duration: 0.8,
+                  duration: 1.2,
+                  yPercent: 100,
                   repeat: -1,
-                  yoyo: true,
-                  ease: 'power1.inOut',
+                  ease: 'power3.out',
                 })
               return tl
             },
@@ -56,7 +57,7 @@ const SectionOne: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
       const handleWheel = () => {
         if (!hasScrolledRef.current && scrollHintRef.current) {
           hasScrolledRef.current = true
-          gsap.killTweensOf(scrollHintRef.current)
+          gsap.killTweensOf([scrollHintRef.current, mouseScrollerRef.current])
           gsap.to(scrollHintRef.current, {
             autoAlpha: 0,
             duration: 0.5,
@@ -86,7 +87,9 @@ const SectionOne: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
       </div>
       {mobileFlag ? null : (
         <div className={styles.scrollHint} ref={scrollHintRef}>
-          <div className={styles.mouseContainer}></div>
+          <div className={styles.mouseContainer}>
+            <div className={styles.mouseScroller} ref={mouseScrollerRef}></div>
+          </div>
           Scroll to Explore
         </div>
       )}
