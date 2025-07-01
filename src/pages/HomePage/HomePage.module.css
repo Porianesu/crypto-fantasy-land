@@ -53,7 +53,8 @@
     }
 
     .footer {
-        @apply h-22 bg-[#0B070B] flex items-center justify-center text-[#5C2D28] text-xl z-10;
+        @apply h-13.5 bg-[#0B070B] flex items-center justify-center text-[#5C2D28] text-sm z-10;
+        @apply xl:h-22 xl:text-xl;
     }
 }
 
