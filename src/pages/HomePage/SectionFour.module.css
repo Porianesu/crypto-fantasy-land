@@ -2,7 +2,7 @@
 
 .sectionContainer {
     /*@apply pb-41;*/
-    @apply pt-0 pb-16;
+    @apply pt-0 pb-57;
     @apply xl:py-20.5;
 
     .title {

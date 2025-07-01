@@ -95,7 +95,7 @@ const HomePage: React.FC = () => {
       <SectionTwo mobileFlag={mobileFlag}></SectionTwo>
       <SectionThree mobileFlag={mobileFlag}></SectionThree>
       <SectionFour mobileFlag={mobileFlag}></SectionFour>
-      <SectionFive></SectionFive>
+      <SectionFive mobileFlag={mobileFlag}></SectionFive>
       <SectionSix></SectionSix>
       <footer className={styles.footer}>© Address Fantasy 2025</footer>
     </div>

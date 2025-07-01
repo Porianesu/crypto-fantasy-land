@@ -3,18 +3,27 @@
 .sectionContainer {
     @apply text-white;
     /*@apply pb-38;*/
-    @apply py-19;
+    @apply pt-0 pb-62;
+    @apply xl:py-19;
 
     .title {
-        @apply text-4xl text-[#D6B065] mb-11;
+        @apply text-lg text-[#D6B065] mb-5;
+        @apply xl:text-4xl xl:mb-11;
     }
 
     .description {
-        @apply text-lg leading-7.5 mb-17;
+        @apply text-sm leading-normal mb-72 text-[#E6CCAF] font-medium max-w-66.5 text-center;
+        @apply xl:text-lg xl:leading-7.5 xl:mb-8 xl:max-w-none xl:text-left;
     }
 
     .contentContainer {
-        @apply flex items-start justify-center relative;
+        @apply flex items-center justify-center relative flex-col;
+        @apply xl:flex-row xl:items-start;
+    }
+
+    .contentMobile {
+        @apply w-86 h-81.5 z-10;
+        @apply bg-[url(/src/assets/images/home_page/section_five/triangle_background_mobile.png)] bg-contain bg-center bg-no-repeat;
     }
 
     .content {
@@ -112,26 +121,33 @@
 }
 
 .infoContainer {
-    @apply absolute w-81 h-126 flex flex-col items-stretch justify-start text-white py-9.5 pl-4 pr-1 top-17.5;
-    @apply bg-contain bg-center bg-no-repeat;
+    @apply absolute flex flex-col items-stretch justify-start text-white py-4 px-5;
+    @apply xl:py-9.5 xl:pl-4 xl:pr-1;
+    @apply bg-size-[100%_100%] bg-center bg-no-repeat;
+    @apply xl:bg-contain;
 
     .infoTitle {
-        @apply text-2xl font-semibold mb-4;
+        @apply text-sm font-semibold mb-2.5;
+        @apply xl:text-2xl xl:mb-4;
     }
 
     .infoDescription {
-        @apply text-base flex flex-row items-start mb-3;
+        @apply text-sm flex flex-row items-start mb-2 font-normal;
+        @apply xl:text-base xl:mb-3;
 
         .serialNumber {
-            @apply w-8 flex items-center justify-center text-center shrink-0 text-2xl mr-1;
+            @apply w-4 flex items-center justify-center text-center shrink-0 text-sm mr-1;
+            @apply xl:w-8 xl:text-2xl;
         }
     }
 }
 
 .infoContainer1 {
-    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-0 -left-65;
+    @apply w-81 h-59 bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-0 -top-55;
+    @apply xl:w-81 xl:h-126 xl:-left-65 xl:top-17.5;
 }
 
 .infoContainer2 {
-    @apply bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-20 -right-59;
+    @apply w-81 h-50.5 bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-20 -bottom-46.5;
+    @apply xl:w-81 xl:h-126 xl:-right-59 xl:top-17.5;
 }

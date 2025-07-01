@@ -4,6 +4,10 @@ import styles from './SectionFive.module.css'
 import classNames from 'classnames'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
+import {
+  GsapMediaQueryCondition,
+  type GsapMediaQueryConditionType,
+} from '@/utils/mediaQueryHelper.ts'
 
 function toRoman(num: number): string {
   const romanMap: [number, string][] = [
@@ -70,31 +74,37 @@ const TextCard = React.forwardRef<ITextCardHandle, { data: ITextData; index: num
 
     useGSAP(
       () => {
-        gsap.set(containerRef.current, {
-          xPercent: index === 0 ? -100 : 100,
-          autoAlpha: 0,
+        const mm = gsap.matchMedia()
+        mm.add(GsapMediaQueryCondition, (context) => {
+          const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+          if (isDesktop) {
+            gsap.set(containerRef.current, {
+              xPercent: index === 0 ? -100 : 100,
+              autoAlpha: 0,
+            })
+            gsap.set([titleRef.current, ...descriptionRefs.current], {
+              y: 100,
+              autoAlpha: 0,
+            })
+            timelineAnimation.current = gsap.timeline({})
+            timelineAnimation.current
+              .to(containerRef.current, {
+                xPercent: 0,
+                autoAlpha: 1,
+                duration: 0.8,
+                ease: 'back.out(1.7)',
+              })
+              .to([titleRef.current, ...descriptionRefs.current], {
+                y: 0,
+                autoAlpha: 1,
+                duration: 0.8,
+                stagger: {
+                  each: 0.2,
+                },
+              })
+              .revert()
+          }
         })
-        gsap.set([titleRef.current, ...descriptionRefs.current], {
-          y: 100,
-          autoAlpha: 0,
-        })
-        timelineAnimation.current = gsap.timeline({})
-        timelineAnimation.current
-          .to(containerRef.current, {
-            xPercent: 0,
-            autoAlpha: 1,
-            duration: 0.8,
-            ease: 'back.out(1.7)',
-          })
-          .to([titleRef.current, ...descriptionRefs.current], {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.8,
-            stagger: {
-              each: 0.2,
-            },
-          })
-          .revert()
       },
       {
         dependencies: [],
@@ -190,7 +200,7 @@ const TriangleData: Array<{
     },
   },
 ]
-const SectionFive: React.FC = () => {
+const SectionFive: React.FC<{ mobileFlag: boolean }> = ({ mobileFlag }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const descriptionRef = useRef<HTMLDivElement>(null)
@@ -204,105 +214,111 @@ const SectionFive: React.FC = () => {
 
   useGSAP(
     () => {
-      if (
-        !textCardRefs.current[0]?.timelineAnimation.current ||
-        !textCardRefs.current[1]?.timelineAnimation.current
-      )
-        return
-      // Pin the section
-      gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionFive-pin',
-          trigger: sectionRef.current,
-          start: 'center center',
-          end: 'bottom+=1800px',
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.4,
-        },
-      })
-      const animationInTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: 'sectionFive-animation-in',
-          trigger: sectionRef.current,
-          start: 'center 80%',
-          end: 'bottom+=1800px',
-          scrub: 0.4,
-        },
-      })
-      animationInTimeline.add(textCardRefs.current[0].timelineAnimation.current)
-      animationInTimeline.add(textCardRefs.current[1].timelineAnimation.current, '<+=0.4')
-      animationInTimeline.from(contentBackgroundRef.current, {
-        scale: 0,
-        autoAlpha: 0,
-        duration: 1.6,
-        ease: 'back.out(1.7)',
-      })
-      TriangleData.forEach((data, index) => {
-        if (data.title) {
-          animationInTimeline.from(contentTitleRefs.current[index], {
+      const mm = gsap.matchMedia()
+      mm.add(GsapMediaQueryCondition, (context) => {
+        const { isDesktop } = context.conditions as unknown as GsapMediaQueryConditionType
+        if (isDesktop) {
+          if (
+            !textCardRefs.current[0]?.timelineAnimation.current ||
+            !textCardRefs.current[1]?.timelineAnimation.current
+          )
+            return
+          // Pin the section
+          gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionFive-pin',
+              trigger: sectionRef.current,
+              start: 'center center',
+              end: 'bottom+=1800px',
+              pin: true,
+              pinSpacing: true,
+              scrub: 0.4,
+            },
+          })
+          const animationInTimeline = gsap.timeline({
+            scrollTrigger: {
+              id: 'sectionFive-animation-in',
+              trigger: sectionRef.current,
+              start: 'center 80%',
+              end: 'bottom+=1800px',
+              scrub: 0.4,
+            },
+          })
+          animationInTimeline.add(textCardRefs.current[0].timelineAnimation.current)
+          animationInTimeline.add(textCardRefs.current[1].timelineAnimation.current, '<+=0.4')
+          animationInTimeline.from(contentBackgroundRef.current, {
             scale: 0,
             autoAlpha: 0,
-            duration: 0.8,
+            duration: 1.6,
             ease: 'back.out(1.7)',
           })
-        }
-        if (data.center) {
-          animationInTimeline.from(
-            contentEllipseRef.current,
-            {
-              rotate: -360,
-              scale: 0,
-              autoAlpha: 0,
-              duration: 1.2,
-              ease: 'back.out(1.7)',
-              onComplete: () => {
-                if (!contentEllipseRotateRef.current) {
-                  contentEllipseRotateRef.current = gsap.to(contentEllipseRef.current, {
-                    rotate: 360,
-                    duration: 40,
-                    ease: 'linear',
-                    repeat: -1,
-                  })
-                }
+          TriangleData.forEach((data, index) => {
+            if (data.title) {
+              animationInTimeline.from(contentTitleRefs.current[index], {
+                scale: 0,
+                autoAlpha: 0,
+                duration: 0.8,
+                ease: 'back.out(1.7)',
+              })
+            }
+            if (data.center) {
+              animationInTimeline.from(
+                contentEllipseRef.current,
+                {
+                  rotate: -360,
+                  scale: 0,
+                  autoAlpha: 0,
+                  duration: 1.2,
+                  ease: 'back.out(1.7)',
+                  onComplete: () => {
+                    if (!contentEllipseRotateRef.current) {
+                      contentEllipseRotateRef.current = gsap.to(contentEllipseRef.current, {
+                        rotate: 360,
+                        duration: 40,
+                        ease: 'linear',
+                        repeat: -1,
+                      })
+                    }
+                  },
+                  onUpdate: () => {
+                    if (contentEllipseRotateRef.current) {
+                      contentEllipseRotateRef.current.revert()
+                      contentEllipseRotateRef.current = null
+                    }
+                  },
+                },
+                '<',
+              )
+            }
+            animationInTimeline.from(contentDescriptionRefs.current[index], data.tweenVars)
+            animationInTimeline.from(contentArrowRefs.current[index], data.tweenVars, '<')
+          })
+          animationInTimeline
+            .from(
+              titleRef.current,
+              {
+                id: 'title',
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.8,
               },
-              onUpdate: () => {
-                if (contentEllipseRotateRef.current) {
-                  contentEllipseRotateRef.current.revert()
-                  contentEllipseRotateRef.current = null
-                }
+              '0',
+            )
+            .from(
+              descriptionRef.current,
+              {
+                id: 'description',
+                y: 40,
+                autoAlpha: 0,
+                duration: 0.8,
               },
-            },
-            '<',
-          )
+              '0',
+            )
+            .to(titleRef.current, {
+              duration: 0.8,
+            })
         }
-        animationInTimeline.from(contentDescriptionRefs.current[index], data.tweenVars)
-        animationInTimeline.from(contentArrowRefs.current[index], data.tweenVars, '<')
       })
-      animationInTimeline
-        .from(
-          titleRef.current,
-          {
-            id: 'title',
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0',
-        )
-        .from(
-          descriptionRef.current,
-          {
-            id: 'description',
-            y: 40,
-            autoAlpha: 0,
-            duration: 0.8,
-          },
-          '0',
-        )
-        .to(titleRef.current, {
-          duration: 0.8,
-        })
     },
     {
       dependencies: [
@@ -334,18 +350,36 @@ const SectionFive: React.FC = () => {
             }}
           ></TextCard>
         ))}
-        <div className={styles.content}>
-          <div className={styles.contentBackground} ref={contentBackgroundRef}></div>
-          {TriangleData.map((data, index) => {
-            const number = index + 1
-            return (
-              <Fragment key={`${index}-${data.title}`}>
-                {data.title ? (
-                  data.center ? (
-                    <div className={styles.titleCenterContainer}>
-                      <div className={styles.titleEllipse} ref={contentEllipseRef}></div>
+        {mobileFlag ? (
+          <div className={styles.contentMobile}></div>
+        ) : (
+          <div className={styles.content}>
+            <div className={styles.contentBackground} ref={contentBackgroundRef}></div>
+            {TriangleData.map((data, index) => {
+              const number = index + 1
+              return (
+                <Fragment key={`${index}-${data.title}`}>
+                  {data.title ? (
+                    data.center ? (
+                      <div className={styles.titleCenterContainer}>
+                        <div className={styles.titleEllipse} ref={contentEllipseRef}></div>
+                        <div
+                          className={styles.titleCenterInsideContainer}
+                          ref={(el) => {
+                            if (el) {
+                              contentTitleRefs.current[index] = el
+                            }
+                          }}
+                        >
+                          {data.title}
+                        </div>
+                      </div>
+                    ) : (
                       <div
-                        className={styles.titleCenterInsideContainer}
+                        className={classNames(
+                          styles.titleContainer,
+                          styles[`titleContainer${number}`],
+                        )}
                         ref={(el) => {
                           if (el) {
                             contentTitleRefs.current[index] = el
@@ -354,51 +388,37 @@ const SectionFive: React.FC = () => {
                       >
                         {data.title}
                       </div>
-                    </div>
-                  ) : (
-                    <div
-                      className={classNames(
-                        styles.titleContainer,
-                        styles[`titleContainer${number}`],
-                      )}
-                      ref={(el) => {
-                        if (el) {
-                          contentTitleRefs.current[index] = el
-                        }
-                      }}
-                    >
-                      {data.title}
-                    </div>
-                  )
-                ) : null}
-                <div
-                  className={classNames(
-                    styles.dataDescription,
-                    styles[`dataDescription${number}`],
-                    {
-                      'max-w-34': number === 4,
-                    },
-                  )}
-                  ref={(el) => {
-                    if (el) {
-                      contentDescriptionRefs.current[index] = el
-                    }
-                  }}
-                >
-                  {data.description}
-                </div>
-                <div
-                  className={classNames(styles.dataArrow, styles[`dataArrow${number}`])}
-                  ref={(el) => {
-                    if (el) {
-                      contentArrowRefs.current[index] = el
-                    }
-                  }}
-                ></div>
-              </Fragment>
-            )
-          })}
-        </div>
+                    )
+                  ) : null}
+                  <div
+                    className={classNames(
+                      styles.dataDescription,
+                      styles[`dataDescription${number}`],
+                      {
+                        'max-w-34': number === 4,
+                      },
+                    )}
+                    ref={(el) => {
+                      if (el) {
+                        contentDescriptionRefs.current[index] = el
+                      }
+                    }}
+                  >
+                    {data.description}
+                  </div>
+                  <div
+                    className={classNames(styles.dataArrow, styles[`dataArrow${number}`])}
+                    ref={(el) => {
+                      if (el) {
+                        contentArrowRefs.current[index] = el
+                      }
+                    }}
+                  ></div>
+                </Fragment>
+              )
+            })}
+          </div>
+        )}
       </div>
     </section>
   )
