@@ -114,21 +114,9 @@ const CardInfo = React.forwardRef<
         <div className={styles.cardInfoDescription}>{cardData.description}</div>
       </div>
       <div className={classNames(styles.lineContainer, styles[`lineContainer${index + 1}`])}>
-        <div
-          className={classNames({
-            [styles.startDot]: [0, 1].includes(index),
-            [styles.startDotReversed]: [2, 3].includes(index),
-          })}
-          ref={startDotRef}
-        ></div>
+        <div className={styles.startDot} ref={startDotRef}></div>
         {cardData.line}
-        <div
-          className={classNames({
-            [styles.endDot]: [0, 1].includes(index),
-            [styles.endDotReversed]: [2, 3].includes(index),
-          })}
-          ref={endDotRef}
-        ></div>
+        <div className={styles.endDot} ref={endDotRef}></div>
       </div>
     </Fragment>
   )

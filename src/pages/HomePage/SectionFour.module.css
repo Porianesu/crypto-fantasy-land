@@ -83,12 +83,7 @@
     @apply absolute z-20;
 
     .startDot {
-        @apply size-4 absolute -right-2 -bottom-2;
-        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
-    }
-
-    .startDotReversed {
-        @apply size-4 absolute -left-2 -bottom-2;
+        @apply size-4 absolute;
         @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
     }
 
@@ -97,28 +92,67 @@
     }
 
     .endDot {
-        @apply size-2 absolute -left-1 -top-1;
-        @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
-    }
-
-    .endDotReversed {
-        @apply size-2 absolute -right-1 -top-1;
+        @apply size-2 absolute;
         @apply bg-[url(/src/assets/images/home_page/section_four/card_template_dot.png)] bg-contain bg-center bg-no-repeat;
     }
 }
 
 .lineContainer1 {
-    @apply w-21 h-10.5 top-7.5 -left-17.5;
+    @apply w-10 h-22.5 -top-12.5 -left-8;
+    @apply xl:w-21 xl:h-10.5 xl:top-7.5 xl:-left-17.5;
+
+    .startDot {
+        @apply -right-2 -bottom-2;
+        @apply xl:-right-2 xl:-bottom-2;
+    }
+
+    .endDot {
+        @apply -left-1 -top-1;
+        @apply xl:-left-1 xl:-top-1;
+    }
 }
 
 .lineContainer2 {
-    @apply w-34 h-20 top-69 -left-18;
+    @apply w-17 h-23 -bottom-15 -left-8;
+    @apply xl:w-34 xl:h-20 xl:top-69 xl:-left-18;
+
+    .startDot {
+        @apply -right-2 -top-2;
+        @apply xl:-right-2 xl:-bottom-2;
+    }
+
+    .endDot {
+        @apply -left-1 -bottom-1;
+        @apply xl:-left-1 xl:-top-1;
+    }
 }
 
 .lineContainer3 {
-    @apply w-38.5 h-25 top-7.5 -right-17.5;
+    @apply w-27 h-35 -top-10.5 -right-7;
+    @apply xl:w-38.5 xl:h-25 xl:top-7.5 xl:-right-17.5;
+
+    .startDot {
+        @apply -left-2 -bottom-2;
+        @apply xl:-left-2 xl:-bottom-2;
+    }
+
+    .endDot {
+        @apply -right-1 -top-1;
+        @apply xl:-right-1 xl:-top-1;
+    }
 }
 
 .lineContainer4 {
-    @apply w-18 h-24 top-69 -right-10;
+    @apply w-17 h-23 -bottom-15 -right-13;
+    @apply xl:w-18 xl:h-24 xl:top-69 xl:-right-10;
+
+    .startDot {
+        @apply -left-2 -top-2;
+        @apply xl:-left-2 xl:-bottom-2;
+    }
+
+    .endDot {
+        @apply -right-1 -bottom-1;
+        @apply xl:-right-1 xl:-top-1;
+    }
 }
