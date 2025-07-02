@@ -2,8 +2,8 @@
 
 .sectionContainer {
     @apply text-white w-screen flex items-center justify-center relative;
-    @apply bg-[url(/src/assets/images/home_page/background_bottom.png)] bg-size-[100%_auto] bg-bottom-left bg-no-repeat;
-    @apply xl:bg-size-[100%_100%] xl:h-screen;
+    @apply bg-[url(/src/assets/images/home_page/background_bottom.png)] bg-size-[100%_auto] bg-bottom-left bg-no-repeat pb-8;
+    @apply xl:bg-size-[100%_100%] xl:h-screen xl:pb-0;
     /*@apply pb-38;*/
 
     .title {
