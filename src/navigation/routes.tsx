@@ -7,3 +7,11 @@ export const ENTRANCE_PATH = '/entrance'
 export const getHomePath = () => {
   return generatePath(HOME_PATH)
 }
+
+export const preloadPages = async () => {
+  try {
+    await import('@/pages/HomePage/HomePage.tsx')
+  } catch (e) {
+    console.error('Error preloading CardPage:', e)
+  }
+}
