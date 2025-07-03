@@ -42,9 +42,7 @@ const JoinWaitlistModal: React.FC = () => {
           )}
         >
           <Content className={styles.modalContent} onInteractOutside={(e) => e.preventDefault()}>
-            <Close>
-              <button className={classNames('button', styles.closeButton)}></button>
-            </Close>
+            <Close className={classNames('button', styles.closeButton)}></Close>
             <Title className={styles.modalTitle}>Join the Waitlist</Title>
             <Description className={styles.modalDescription}>
               Become one of the first to summon the legends.
