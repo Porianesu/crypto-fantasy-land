@@ -9,7 +9,7 @@
 
 @layer components {
     .button {
-        @apply hover:scale-105 active:scale-95 transition-transform;
+        @apply hover:scale-105 active:scale-95 transition-transform cursor-pointer;
     }
 
     .no-scrollbar {

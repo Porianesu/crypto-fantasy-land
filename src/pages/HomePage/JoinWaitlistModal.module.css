@@ -8,6 +8,12 @@
     @apply bg-[#441410] flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pt-6.5 px-25 leading-10 focus-visible:outline-none rounded-xl;
     @apply xl:w-97.5 xl:h-139 xl:pt-11 xl:px-7.5 xl:pb-10;
 
+    .closeButton {
+        @apply absolute;
+        @apply xl:size-3.5 xl:top-2 xl:right-2;
+        @apply bg-[url(/src/assets/images/home_page/close_button.png)] bg-contain bg-center bg-no-repeat;
+    }
+
     .modalTitle {
         @apply text-[#FFFABD] font-bold leading-normal text-center;
         @apply xl:text-xl xl:mb-5;

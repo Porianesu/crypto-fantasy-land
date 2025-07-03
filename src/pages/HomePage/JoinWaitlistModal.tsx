@@ -1,7 +1,15 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import styles from './JoinWaitlistModal.module.css'
-import { Content, Description, Dialog, Portal, Title, DialogOverlay } from '@radix-ui/react-dialog'
+import {
+  Content,
+  Description,
+  Dialog,
+  Portal,
+  Title,
+  DialogOverlay,
+  Close,
+} from '@radix-ui/react-dialog'
 import classNames from 'classnames'
 import { useMobxStore } from '@/stores/StoreProvider.tsx'
 import { Controller, useForm } from 'react-hook-form'
@@ -33,7 +41,10 @@ const JoinWaitlistModal: React.FC = () => {
             styles.overlay,
           )}
         >
-          <Content className={styles.modalContent}>
+          <Content className={styles.modalContent} onInteractOutside={(e) => e.preventDefault()}>
+            <Close>
+              <button className={classNames('button', styles.closeButton)}></button>
+            </Close>
             <Title className={styles.modalTitle}>Join the Waitlist</Title>
             <Description className={styles.modalDescription}>
               Become one of the first to summon the legends.
