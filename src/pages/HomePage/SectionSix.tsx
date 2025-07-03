@@ -233,6 +233,8 @@ const SectionSix: React.FC = () => {
           ></RoadmapCard>
         ))}
       </div>
+      <div className={styles.startDescription}>Your Legend Starts Here</div>
+      <button className={classNames('button', styles.startButton)}>Join Waitlist</button>
     </section>
   )
 }

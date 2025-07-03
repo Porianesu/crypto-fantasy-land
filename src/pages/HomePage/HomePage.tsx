@@ -87,9 +87,12 @@ const HomePage: React.FC = () => {
       </div>
       <div className={styles.header} ref={headerRef}>
         <button className={classNames(styles.gameIcon, 'button')} onClick={goGamePage}></button>
-        <button className={classNames('button', styles.playButton)} onClick={goGamePage}>
-          Play Game
-        </button>
+        <div className={styles.headerRightButtonGroup}>
+          <div className={classNames('button', styles.joinWaitlistButton)}>Join Waitlist</div>
+          <button className={classNames('button', styles.playButton)} onClick={goGamePage}>
+            Play Game
+          </button>
+        </div>
       </div>
       <SectionOne mobileFlag={mobileFlag}></SectionOne>
       <SectionTwo mobileFlag={mobileFlag}></SectionTwo>

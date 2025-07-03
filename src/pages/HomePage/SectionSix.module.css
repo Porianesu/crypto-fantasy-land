@@ -3,7 +3,7 @@
 .sectionContainer {
     @apply text-white w-screen flex items-center justify-center relative;
     @apply bg-[url(/src/assets/images/home_page/background_bottom.png)] bg-size-[100%_auto] bg-bottom-left bg-no-repeat pb-8;
-    @apply xl:bg-size-[100%_100%] xl:h-screen xl:pb-0;
+    @apply xl:bg-size-[100%_auto] xl:h-screen xl:pb-12;
     /*@apply pb-38;*/
 
     .title {
@@ -12,13 +12,30 @@
     }
 
     .content {
-        @apply relative flex flex-col items-center gap-y-4;
-        @apply xl:w-300 xl:h-165;
+        @apply relative flex flex-col items-center gap-y-4 mb-4;
+        @apply xl:w-300 xl:h-165 xl:mb-7.5;
 
         .roadmapContainer {
             @apply flex items-start flex-row;
             @apply xl:absolute;
         }
+    }
+    .startDescription {
+        @apply text-[#D6B065] text-lg font-bold mb-4.5;
+        @apply xl:text-4xl xl:mb-7;
+    }
+    .startButton {
+        @apply w-38 h-10.5 text-white text-sm cursor-pointer font-[Duvall];
+        @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
+        @apply xl:w-57 xl:h-16 xl:text-xl;
+        text-shadow: -2px -2px 0 #4C3110,
+        2px -2px 0 #4C3110,
+        -2px 2px 0 #4C3110,
+        2px 2px 0 #4C3110,
+        0 -2px 0 #4C3110,
+        0 2px 0 #4C3110,
+        -2px 0 0 #4C3110,
+        2px 0 0 #4C3110;
     }
 }
 

@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+.headerRightButtonGroup {
+    .joinWaitlistButton {
+        @apply text-xs leading-10 text-white cursor-pointer;
+        @apply xl:text-lg;
+        text-shadow: -2px -2px 0 #4C3110,
+        2px -2px 0 #4C3110,
+        -2px 2px 0 #4C3110,
+        2px 2px 0 #4C3110,
+        0 -2px 0 #4C3110,
+        0 2px 0 #4C3110,
+        -2px 0 0 #4C3110,
+        2px 0 0 #4C3110;
+    }
+    .playButton {
+        @apply w-26 h-7.5 text-white text-xs cursor-pointer;
+        @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
+        @apply xl:w-50 xl:h-14 xl:text-xl;
+        text-shadow: -2px -2px 0 #4C3110,
+        2px -2px 0 #4C3110,
+        -2px 2px 0 #4C3110,
+        2px 2px 0 #4C3110,
+        0 -2px 0 #4C3110,
+        0 2px 0 #4C3110,
+        -2px 0 0 #4C3110,
+        2px 0 0 #4C3110;
+    }
+}
 .pageContainer {
     @apply w-full flex flex-col items-stretch bg-[#160D16];
     @apply bg-[url(/src/assets/images/home_page/background_top.png)] bg-size-[100%_auto] bg-top-left bg-no-repeat;
@@ -15,19 +42,9 @@
             @apply xl:w-28.5 xl:h-14.5;
         }
 
-        .playButton {
-            @apply w-26 h-7.5 text-white text-xs cursor-pointer;
-            @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
-            @apply xl:w-50 xl:h-14 xl:text-xl;
-            font-family: Duvall, serif;
-            text-shadow: -2px -2px 0 #4C3110,
-            2px -2px 0 #4C3110,
-            -2px 2px 0 #4C3110,
-            2px 2px 0 #4C3110,
-            0 -2px 0 #4C3110,
-            0 2px 0 #4C3110,
-            -2px 0 0 #4C3110,
-            2px 0 0 #4C3110;
+        .headerRightButtonGroup {
+            @apply flex flex-row items-center gap-x-2 font-[Duvall];
+            @apply xl:gap-x-5;
         }
     }
 
