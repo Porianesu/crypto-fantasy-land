@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+.overlay {
+    @apply fixed inset-0 z-50 bg-[#000]/50;
+}
+
+.modalContent {
+    @apply bg-[#441410] flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pt-6.5 px-25 leading-10 focus-visible:outline-none rounded-xl;
+    @apply xl:w-97.5 xl:h-139 xl:pt-11 xl:px-7.5 xl:pb-10;
+
+    .modalTitle {
+        @apply text-[#FFFABD] font-bold leading-normal text-center;
+        @apply xl:text-xl xl:mb-5;
+    }
+
+    .modalDescription {
+        @apply text-[#FFFABD] font-semibold leading-normal text-center;
+        @apply xl:text-sm xl:mb-7.5;
+    }
+
+    .formContainer {
+        @apply flex flex-col items-stretch;
+
+        .formWarning {
+            @apply text-red-500 text-xs ml-4;
+        }
+
+        & > label {
+            @apply text-white font-semibold leading-normal;
+            @apply xl:text-sm xl:mb-2.5;
+        }
+
+        & > input {
+            @apply text-[#FFFABD] bg-[#2F0B08] border border-[#76371C] rounded-sm placeholder:text-[#9EA3AB] focus-visible:outline-[#FFFABD];
+            @apply xl:h-9 xl:mb-7.5 xl:px-2.5 xl:py-2 xl:text-sm;
+        }
+
+        .submitButton {
+            @apply w-38 h-10.5 text-white text-sm font-[Duvall] self-center;
+            @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
+            @apply xl:w-50 xl:h-14 xl:text-xl;
+            text-shadow: -2px -2px 0 #4C3110,
+            2px -2px 0 #4C3110,
+            -2px 2px 0 #4C3110,
+            2px 2px 0 #4C3110,
+            0 -2px 0 #4C3110,
+            0 2px 0 #4C3110,
+            -2px 0 0 #4C3110,
+            2px 0 0 #4C3110;}
+    }
+}

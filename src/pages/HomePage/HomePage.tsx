@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React, { useRef, useState } from 'react'
+import React, { Suspense, useRef, useState } from 'react'
 import styles from './HomePage.module.css'
 import classNames from 'classnames'
 import SectionTwo from '@/pages/HomePage/SectionTwo.tsx'
@@ -15,6 +15,7 @@ import {
   type GsapMediaQueryConditionType,
 } from '@/utils/mediaQueryHelper.ts'
 import { useMobxStore } from '@/stores/StoreProvider.tsx'
+const JoinWaitlistModal = React.lazy(() => import('@/pages/HomePage/JoinWaitlistModal.tsx'))
 
 const HomePage: React.FC = () => {
   const {
@@ -114,6 +115,9 @@ const HomePage: React.FC = () => {
       <SectionFive mobileFlag={mobileFlag}></SectionFive>
       <SectionSix></SectionSix>
       <footer className={styles.footer}>© Address Fantasy 2025</footer>
+      <Suspense fallback={null}>
+        <JoinWaitlistModal></JoinWaitlistModal>
+      </Suspense>
     </div>
   )
 }

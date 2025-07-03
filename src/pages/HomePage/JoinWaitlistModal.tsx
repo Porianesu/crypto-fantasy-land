@@ -1,0 +1,98 @@
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import styles from './JoinWaitlistModal.module.css'
+import { Content, Description, Dialog, Portal, Title, DialogOverlay } from '@radix-ui/react-dialog'
+import classNames from 'classnames'
+import { useMobxStore } from '@/stores/StoreProvider.tsx'
+import { Controller, useForm } from 'react-hook-form'
+
+const JoinWaitlistModal: React.FC = () => {
+  const {
+    modalStore: { waitlistModalVisible, changeWaitlistModalVisible },
+  } = useMobxStore()
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { name: '', email: '', note: '' },
+  })
+
+  const onSubmit = (data: any) => {
+    // 这里可以处理表单提交逻辑
+    console.log('表单数据:', data)
+  }
+
+  return (
+    <Dialog open={waitlistModalVisible} onOpenChange={changeWaitlistModalVisible}>
+      <Portal>
+        <DialogOverlay
+          className={classNames(
+            'data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out',
+            styles.overlay,
+          )}
+        >
+          <Content className={styles.modalContent}>
+            <Title className={styles.modalTitle}>Join the Waitlist</Title>
+            <Description className={styles.modalDescription}>
+              Become one of the first to summon the legends.
+            </Description>
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+              <label htmlFor="name">
+                Name:
+                {errors.name && (
+                  <span className={styles.formWarning}>{errors.name.message as string}</span>
+                )}
+              </label>
+              <Controller
+                name="name"
+                control={control}
+                rules={{ required: 'Name is required' }}
+                render={({ field }) => (
+                  <input id="name" placeholder={'Please enter your name.'} {...field} />
+                )}
+              />
+              <label htmlFor="email">
+                Email:
+                {errors.email && (
+                  <span className={styles.formWarning}>{errors.email.message as string}</span>
+                )}
+              </label>
+              <Controller
+                name="email"
+                control={control}
+                rules={{
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Invalid email address',
+                  },
+                }}
+                render={({ field }) => (
+                  <input
+                    id="email"
+                    placeholder={'Please input your email address.'}
+                    type="email"
+                    {...field}
+                  />
+                )}
+              />
+              <label htmlFor="note">Note:</label>
+              <Controller
+                name="note"
+                control={control}
+                render={({ field }) => <input id="note" placeholder={'(Optional)'} {...field} />}
+              />
+              <button type="submit" className={classNames('button', styles.submitButton)}>
+                Submit
+              </button>
+            </form>
+          </Content>
+        </DialogOverlay>
+      </Portal>
+    </Dialog>
+  )
+}
+
+export default observer(JoinWaitlistModal)
