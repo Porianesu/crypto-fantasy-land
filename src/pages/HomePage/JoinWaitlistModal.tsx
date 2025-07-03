@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './JoinWaitlistModal.module.css'
 import {
   Content,
@@ -12,24 +12,51 @@ import {
 } from '@radix-ui/react-dialog'
 import classNames from 'classnames'
 import { useMobxStore } from '@/stores/StoreProvider.tsx'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
+interface FormData {
+  name: string
+  email: string
+  note?: string
+}
 const JoinWaitlistModal: React.FC = () => {
   const {
     modalStore: { waitlistModalVisible, changeWaitlistModalVisible },
   } = useMobxStore()
+  const [loading, setLoading] = useState(false)
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormData>({
     defaultValues: { name: '', email: '', note: '' },
   })
 
-  const onSubmit = (data: any) => {
-    // 这里可以处理表单提交逻辑
-    console.log('表单数据:', data)
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    setLoading(true)
+    try {
+      const response = await fetch('https://crypto-fantasy-backend.vercel.app/api/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      if (!response.ok) {
+        return toast.error('Submission failed, please try again later.')
+      }
+      const result = await response.json()
+      if (result?.id) {
+        toast.success('Submission successful! Thank you for joining the waitlist.')
+        changeWaitlistModalVisible(false)
+      }
+    } catch (error) {
+      // 可根据需要处理错误逻辑
+      console.error('提交出错', error)
+    }
+    setLoading(false)
   }
 
   return (

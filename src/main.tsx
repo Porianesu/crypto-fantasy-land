@@ -6,6 +6,7 @@ import PageContainer from '@/components/PageContainer.tsx'
 import { StoreProvider } from '@/stores/StoreProvider.tsx'
 import EntrancePage from '@/pages/EntrancePage.tsx'
 import HomePage from '@/pages/HomePage/HomePage.tsx'
+import { ToastContainer } from 'react-toastify'
 
 const router = createBrowserRouter([
   {
@@ -35,5 +36,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StoreProvider initialState={null}>
     <RouterProvider router={router}></RouterProvider>
+    <ToastContainer
+      position={'top-right'}
+      autoClose={1500}
+      theme={'colored'}
+      newestOnTop={true}
+    ></ToastContainer>
   </StoreProvider>,
 )
