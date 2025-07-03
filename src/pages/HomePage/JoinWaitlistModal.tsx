@@ -134,8 +134,12 @@ const JoinWaitlistModal: React.FC = () => {
                   <input id="note" placeholder={'Note (optional)'} {...field} />
                 )}
               />
-              <button type="submit" className={classNames('button', styles.submitButton)}>
-                Submit
+              <button
+                type="submit"
+                className={classNames({ button: !loading }, styles.submitButton)}
+                disabled={loading}
+              >
+                {loading ? 'Submitting...' : 'Submit'}
               </button>
             </form>
           </Content>
