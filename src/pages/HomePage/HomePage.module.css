@@ -32,21 +32,21 @@
     }
 
     .heroesPartContainer {
-        @apply flex flex-col items-center justify-start absolute top-32 w-full z-0;
-        @apply xl:top-65;
+        @apply flex flex-col items-end justify-start absolute top-30 w-full z-0;
+        @apply xl:top-65 xl:items-center;
 
         .heroesContainer {
             @apply flex flex-row items-start z-0;
         }
 
         .heroesContainerMobile {
-            @apply w-90 h-47.5;
+            @apply w-91.5 h-43;
             @apply bg-[url(/src/assets/images/home_page/heroes_background_mobile.png)] bg-contain bg-top-left bg-no-repeat;
         }
 
         .heroesCover {
-            @apply w-full h-110.5 z-10 -mt-24;
-            @apply xl:-mt-87 xl:h-509.25;
+            @apply w-full h-110.5 z-10 -mt-18.5;
+            @apply xl:h-509.25 xl:-mt-87;
             @apply bg-[url(/src/assets/images/home_page/heros_cover.png)] bg-size-[100%_100%] bg-top-left bg-no-repeat;
             @apply xl:bg-size-[100%_auto];
         }
