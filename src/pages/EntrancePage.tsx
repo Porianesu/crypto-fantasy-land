@@ -15,6 +15,7 @@ const EntrancePage: React.FC = () => {
   const progressBarWrapperRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
+  console.log('preloadProgress', preloadProgress)
 
   useEffect(() => {
     initData()
@@ -22,9 +23,21 @@ const EntrancePage: React.FC = () => {
 
   useGSAP(
     () => {
+      gsap.set(progressBarRef.current, {
+        xPercent: -100,
+      })
+    },
+    {
+      dependencies: [],
+      scope: progressBarWrapperRef,
+    },
+  )
+
+  useGSAP(
+    () => {
       gsap.killTweensOf(progressBarRef.current)
       gsap.to(progressBarRef.current, {
-        width: `${preloadProgress * 100}%`,
+        xPercent: -100 * (1 - preloadProgress),
         duration: 0.1,
         ease: 'power2.out',
       })

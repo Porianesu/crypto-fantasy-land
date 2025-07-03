@@ -11,26 +11,30 @@
 
 .pageContainer {
     @apply w-full h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#ffecd2] to-[#fcb69f] relative overflow-hidden;
+    @apply bg-[url(/src/assets/images/entrance_page/background.png)] bg-size-[100%_100%] bg-center bg-no-repeat;
 }
 
 .pageContainer {
+
     .gameIcon {
         @apply w-32 h-16 cursor-pointer mb-8;
-        @apply bg-[url(/src/assets/images/home_page/game_icon.png)] bg-cover bg-center bg-no-repeat;
+        @apply xl:w-66.5 xl:h-33.5 xl:mb-13;
+        @apply bg-[url(/src/assets/images/home_page/game_icon.png)] bg-size-[100%_100%] bg-center bg-no-repeat;
         animation: icon-bounce 1.6s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
     }
 
     .progressBarWrapper {
-        @apply w-full flex justify-center mb-4;
+        @apply flex items-center justify-center w-72 h-4 p-0.5;
+        @apply xl:w-103.5 xl:h-4.5;
+        @apply bg-[url(/src/assets/images/entrance_page/progress_bar_background.png)] bg-size-[100%_100%] bg-center bg-no-repeat;
     }
 
     .progressBarBg {
-        @apply w-72 h-4 rounded-full bg-[#ffe0c3] shadow-inner overflow-hidden border-2 border-[#ffb347] relative;
+        @apply w-full h-full rounded-xl overflow-hidden;
     }
 
     .progressBarFill {
-        @apply h-full rounded-full w-0;
-        background: linear-gradient(90deg, #ffb347 0%, #ff7e5f 100%);
-        box-shadow: 0 0 8px #ffb34788;
+        @apply h-full rounded-full w-full;
+        @apply bg-[url(/src/assets/images/entrance_page/progress_bar.png)] bg-size-[100%_100%] bg-center bg-no-repeat;
     }
 }
