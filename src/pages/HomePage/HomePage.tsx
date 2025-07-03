@@ -14,8 +14,12 @@ import {
   GsapMediaQueryCondition,
   type GsapMediaQueryConditionType,
 } from '@/utils/mediaQueryHelper.ts'
+import { useMobxStore } from '@/stores/StoreProvider.tsx'
 
 const HomePage: React.FC = () => {
+  const {
+    modalStore: { changeWaitlistModalVisible },
+  } = useMobxStore()
   const pageRef = useRef<HTMLDivElement>(null)
   const heroesCoverRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
@@ -65,6 +69,10 @@ const HomePage: React.FC = () => {
     window.open('https://fantasy.defed.network')
   }
 
+  const handleJoinWaitlist = () => {
+    changeWaitlistModalVisible(true)
+  }
+
   return (
     <div className={styles.pageContainer} ref={pageRef}>
       <div className={styles.heroesPartContainer}>
@@ -88,7 +96,12 @@ const HomePage: React.FC = () => {
       <div className={styles.header} ref={headerRef}>
         <button className={classNames(styles.gameIcon, 'button')} onClick={goGamePage}></button>
         <div className={styles.headerRightButtonGroup}>
-          <div className={classNames('button', styles.joinWaitlistButton)}>Join Waitlist</div>
+          <div
+            className={classNames('button', styles.joinWaitlistButton)}
+            onClick={handleJoinWaitlist}
+          >
+            Join Waitlist
+          </div>
           <button className={classNames('button', styles.playButton)} onClick={goGamePage}>
             Play Game
           </button>

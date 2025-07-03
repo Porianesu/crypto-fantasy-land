@@ -8,6 +8,7 @@ import {
   GsapMediaQueryCondition,
   type GsapMediaQueryConditionType,
 } from '@/utils/mediaQueryHelper.ts'
+import { useMobxStore } from '@/stores/StoreProvider.tsx'
 
 interface IRoadmapData {
   time: string
@@ -162,9 +163,16 @@ const RoadmapCard = React.forwardRef<IRoadmapHandle, { data: IRoadmapData; index
 )
 
 const SectionSix: React.FC = () => {
+  const {
+    modalStore: { changeWaitlistModalVisible },
+  } = useMobxStore()
   const sectionRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<Array<IRoadmapHandle>>([])
+
+  const handelJoinWaitlist = () => {
+    changeWaitlistModalVisible(true)
+  }
 
   useGSAP(
     () => {
@@ -234,7 +242,9 @@ const SectionSix: React.FC = () => {
         ))}
       </div>
       <div className={styles.startDescription}>Your Legend Starts Here</div>
-      <button className={classNames('button', styles.startButton)}>Join Waitlist</button>
+      <button className={classNames('button', styles.startButton)} onClick={handelJoinWaitlist}>
+        Join Waitlist
+      </button>
     </section>
   )
 }
