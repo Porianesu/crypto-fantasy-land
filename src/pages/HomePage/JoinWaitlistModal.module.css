@@ -35,6 +35,10 @@
             @apply xl:h-9 xl:mb-7.5 xl:px-2.5 xl:py-2 xl:text-sm;
         }
 
+        & > input:last-of-type {
+            @apply xl:mb-10;
+        }
+
         .submitButton {
             @apply w-38 h-10.5 text-white text-sm font-[Duvall] self-center;
             @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;

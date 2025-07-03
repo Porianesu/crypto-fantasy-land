@@ -48,7 +48,11 @@ const JoinWaitlistModal: React.FC = () => {
               <Controller
                 name="name"
                 control={control}
-                rules={{ required: 'Name is required' }}
+                rules={{
+                  required: 'Name is required',
+                  minLength: { value: 2, message: 'Name must be at least 2 characters' },
+                  maxLength: { value: 20, message: 'Name must be at most 20 characters' },
+                }}
                 render={({ field }) => (
                   <input id="name" placeholder={'Please enter your name.'} {...field} />
                 )}
@@ -78,11 +82,21 @@ const JoinWaitlistModal: React.FC = () => {
                   />
                 )}
               />
-              <label htmlFor="note">Note:</label>
+              <label htmlFor="note">
+                Note:
+                {errors.note && (
+                  <span className={styles.formWarning}>{errors.note.message as string}</span>
+                )}
+              </label>
               <Controller
                 name="note"
                 control={control}
-                render={({ field }) => <input id="note" placeholder={'(Optional)'} {...field} />}
+                rules={{
+                  maxLength: { value: 100, message: 'Note must be at most 100 characters' },
+                }}
+                render={({ field }) => (
+                  <input id="note" placeholder={'Note (optional)'} {...field} />
+                )}
               />
               <button type="submit" className={classNames('button', styles.submitButton)}>
                 Submit
