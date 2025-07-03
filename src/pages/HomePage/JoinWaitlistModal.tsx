@@ -44,13 +44,17 @@ const JoinWaitlistModal: React.FC = () => {
         },
         body: JSON.stringify(data),
       })
-      if (!response.ok) {
-        return toast.error('Submission failed, please try again later.')
-      }
       const result = await response.json()
       if (result?.id) {
         toast.success('Submission successful! Thank you for joining the waitlist.')
         changeWaitlistModalVisible(false)
+      }
+      if (!response.ok) {
+        let errorMessage = 'Submission failed, please try again later.'
+        if (result.code && result.error) {
+          errorMessage = result.error
+        }
+        toast.error(errorMessage)
       }
     } catch (error) {
       // 可根据需要处理错误逻辑
