@@ -5,50 +5,48 @@
 }
 
 .modalContent {
-    @apply bg-[#441410] flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pt-6.5 px-25 leading-10 focus-visible:outline-none rounded-xl;
+    @apply w-82.5 h-125.5 pt-9 px-5.5 pb-7 bg-[#441410] flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 leading-10 focus-visible:outline-none rounded-xl;
     @apply xl:w-97.5 xl:h-139 xl:pt-11 xl:px-7.5 xl:pb-10;
 
     .closeButton {
-        @apply absolute;
-        @apply xl:size-3.5 xl:top-2 xl:right-2;
+        @apply size-3.5 absolute top-2 right-2;
         @apply bg-[url(/src/assets/images/home_page/close_button.png)] bg-contain bg-center bg-no-repeat;
     }
 
     .modalTitle {
-        @apply text-[#FFFABD] font-bold leading-normal text-center;
-        @apply xl:text-xl xl:mb-5;
+        @apply text-xl mb-4 text-[#FFFABD] font-bold leading-normal text-center;
+        @apply xl:mb-5;
     }
 
     .modalDescription {
-        @apply text-[#FFFABD] font-semibold leading-normal text-center;
-        @apply xl:text-sm xl:mb-7.5;
+        @apply text-sm mb-4 text-[#FFFABD] font-semibold leading-normal text-center max-w-63 self-center;
+        @apply xl:mb-7.5;
     }
 
     .formContainer {
         @apply flex flex-col items-stretch;
 
         .formWarning {
-            @apply text-red-500 text-xs ml-4;
+            @apply text-red-500 text-xs ml-2;
+            @apply xl:ml-4;
         }
 
         & > label {
-            @apply text-white font-semibold leading-normal;
-            @apply xl:text-sm xl:mb-2.5;
+            @apply mb-2.5 text-sm text-white font-semibold leading-normal;
         }
 
         & > input {
-            @apply text-[#FFFABD] bg-[#2F0B08] border border-[#76371C] rounded-sm placeholder:text-[#9EA3AB] focus-visible:outline-[#FFFABD];
-            @apply xl:h-9 xl:mb-7.5 xl:px-2.5 xl:py-2 xl:text-sm;
+            @apply h-9 mb-7.5 px-2.5 py-2 text-sm text-[#FFFABD] bg-[#2F0B08] border border-[#76371C] rounded-sm placeholder:text-[#9EA3AB] focus-visible:outline-[#FFFABD];
         }
 
         & > input:last-of-type {
-            @apply xl:mb-10;
+            @apply xl:mb-7;
         }
 
         .submitButton {
-            @apply w-38 h-10.5 text-white text-sm font-[Duvall] self-center;
+            @apply w-46 h-12 text-white text-xl font-[Duvall] self-center;
             @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
-            @apply xl:w-50 xl:h-14 xl:text-xl;
+            @apply xl:w-50 xl:h-14;
             text-shadow: -2px -2px 0 #4C3110,
             2px -2px 0 #4C3110,
             -2px 2px 0 #4C3110,
