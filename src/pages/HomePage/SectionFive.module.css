@@ -148,6 +148,6 @@
 }
 
 .infoContainer2 {
-    @apply w-81 h-50.5 bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-20 -bottom-46.5;
+    @apply w-81 h-50.5 bg-[url(/src/assets/images/home_page/section_five/text_background_1.png)] z-0 -bottom-46.5;
     @apply xl:w-81 xl:h-126 xl:-right-59 xl:top-17.5;
 }

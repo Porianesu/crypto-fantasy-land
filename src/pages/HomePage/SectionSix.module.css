@@ -7,12 +7,12 @@
     /*@apply pb-38;*/
 
     .title {
-        @apply text-lg text-[#D6B065] mb-17.5 font-bold;
+        @apply shrink-0 text-lg text-[#D6B065] mb-17.5 font-bold;
         @apply xl:text-4xl xl:mb-20.5;
     }
 
     .content {
-        @apply relative flex flex-col items-center gap-y-4 mb-4;
+        @apply shrink-0 relative flex flex-col items-center gap-y-4 mb-4;
         @apply xl:w-300 xl:h-165 xl:mb-7.5;
 
         .roadmapContainer {
@@ -21,11 +21,11 @@
         }
     }
     .startDescription {
-        @apply text-[#D6B065] text-lg font-bold mb-4.5;
+        @apply shrink-0 text-[#D6B065] text-lg font-bold mb-4.5;
         @apply xl:text-4xl xl:mb-7;
     }
     .startButton {
-        @apply w-38 h-10.5 text-white text-sm cursor-pointer font-[Duvall];
+        @apply shrink-0 w-38 h-10.5 text-white text-sm cursor-pointer font-[Duvall];
         @apply bg-[url(/src/assets/images/home_page/play_button_background.png)] bg-cover bg-center bg-no-repeat;
         @apply xl:w-57 xl:h-16 xl:text-xl;
         text-shadow: -2px -2px 0 #4C3110,
